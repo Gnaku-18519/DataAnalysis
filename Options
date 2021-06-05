@@ -17,12 +17,12 @@ MaxFunEvals (fminbnd, fminsearch):
 MaxIter	(fminbnd, fminsearch):
   The maximum number of iterations allowed. The default value is 500 for fminbnd and 200*length(x0) for fminsearch.
 
-%{
+**%{
 Differences between MaxFunEvals & MaxIter (retrieved from mathworks.com, by Steven Lord):
 If you had to walk through an unfamiliar darkened room and you had a stick, you might tap the ground in front of you, in front and to the left, and in front and to the right to determine where the path is clear.
 Once you know the direction where it's safe to move, you take a step and repeat the process of tapping and stepping.
 Tapping the ground is a function evaluation. Stepping is an iteration. One step (iteration) may require multiple taps (function evaluations) to complete.
-%}
+%}**
   
 OutputFcn (fminbnd, fminsearch, fzero):
   Display information on the iterations of the solver. The default is [] (none). See Optimization Solver Output Functions.
