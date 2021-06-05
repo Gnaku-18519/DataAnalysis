@@ -5,19 +5,19 @@ Display (fminbnd, fminsearch, fzero, lsqnonneg):
 	'off' or 'none' displays no intermediate steps.
 	'final' displays just the final output.
 
-FunValCheck	(fminbnd, fminsearch, fzero):
+FunValCheck (fminbnd, fminsearch, fzero):
   Check whether objective function values are valid.
 	'on' displays an error when the objective function or constraints return a value that is complex or NaN.
 	'off' (default) displays no error.
   
-MaxFunEvals	(fminbnd, fminsearch):
+MaxFunEvals (fminbnd, fminsearch):
   The maximum number of function evaluations allowed. The default value is 500 for fminbnd and 200*length(x0) for fminsearch.
   eg. options = optimset('MaxFunEval', 50);
 
 MaxIter	(fminbnd, fminsearch):
   The maximum number of iterations allowed. The default value is 500 for fminbnd and 200*length(x0) for fminsearch.
   
-OutputFcn	(fminbnd, fminsearch, fzero):
+OutputFcn (fminbnd, fminsearch, fzero):
   Display information on the iterations of the solver. The default is [] (none). See Optimization Solver Output Functions.
   eg. options = optimset('OutputFcn', @custom_stop_fun);
       function stop = custom_stop_fun(~, optimValues, ~)
