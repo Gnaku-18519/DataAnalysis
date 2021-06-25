@@ -3,7 +3,7 @@ For optimoptions, you include the solver name as the first argument. options = o
 For optimset, the syntax does not include the solver name. options = optimset(Name,Value,...)
 In both cases, you can query or change options by using dot notation.
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Display (fminbnd, fminsearch, fzero, lsqnonneg):
   A flag indicating whether intermediate steps appear on the screen.
 	'notify' (default) displays output only if the function does not converge.
