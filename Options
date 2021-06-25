@@ -1,3 +1,9 @@
+The main difference in creating options is:
+For optimoptions, you include the solver name as the first argument. options = optimoptions(SolverName,Name,Value,...)
+For optimset, the syntax does not include the solver name. options = optimset(Name,Value,...)
+In both cases, you can query or change options by using dot notation.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Display (fminbnd, fminsearch, fzero, lsqnonneg):
   A flag indicating whether intermediate steps appear on the screen.
 	'notify' (default) displays output only if the function does not converge.
@@ -43,9 +49,3 @@ TolFun (fminsearch):
 TolX (fminbnd, fminsearch, fzero, lsqnonneg):
   The termination tolerance for x.
   The default value is 1.e-4, except for fzero, which has a default value of eps (= 2.2204e-16), and lsqnonneg, which has a default value of 10*eps*norm(c,1)*length(c).
-
-
-The main difference in creating options is:
-For optimoptions, you include the solver name as the first argument. options = optimoptions(SolverName,Name,Value,...)
-For optimset, the syntax does not include the solver name. options = optimset(Name,Value,...)
-In both cases, you can query or change options by using dot notation.
