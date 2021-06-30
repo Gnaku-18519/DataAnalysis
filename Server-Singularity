@@ -1,7 +1,7 @@
 Singularity is basically the command window of MATLAB / Octave
 
 Working Model:---------------------------------------------------------------------------------------------------------------------------------------------------------------
-username@its-og-login1:~$ singularity shell u20_octave.img 
+ajwuu@its-og-login:~$ singularity shell u20_octave.img 
 Singularity> octave
 octave: X11 DISPLAY environment variable not set
 octave: disabling GUI features
