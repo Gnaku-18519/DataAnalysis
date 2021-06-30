@@ -1,0 +1,13 @@
+1. Create a .m file (eg. named octave_test.m)
+2. Write a samename.sub in the same directory (eg. octave_test.sub)
+   octave_test.sub Template -------------------------------------------------------------------------------------------------------------------------------------------
+      executable = singularity_wrapper.sh
+      arguments  = u20_octave.img octave octave_test.m
+      output     = octave_test.out
+      error      = octave_test.err
+      log        = octave_test.log
+      Requirements = TARGET.vm_name == "its-u20-nfs-20210413"
+      queue
+   --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3. Do "condor_submit octave_test.sub" for submitting to the cluster
+4. Do "condor_q", after a fairly short time it will produce octave_test.out with the results
