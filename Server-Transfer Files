@@ -1,0 +1,8 @@
+1. winSCP -> https://winscp.net/eng/index.php
+2. scp.exe command from the command prompt
+   For example: if you have a lot of files ending in .dat you could do
+                scp  ajwuu@its-og-login1.xxx.edu:*.dat .
+                to transfer them all to your local computer.
+                Or to go the other way you could send all your .m files with
+                scp *.m ajwuu@its-og-login1.xxx.edu:
+3. (RECOMMENDED) use MobaXterm_Personal instead of PuTTy -> MobaXterm has a much better interactive platform with upload, download, etc.
