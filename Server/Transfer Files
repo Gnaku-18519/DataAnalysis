@@ -6,3 +6,4 @@
                 Or to go the other way you could send all your .m files with
                 scp *.m ajwuu@its-og-login1.XXX.edu:
 3. (RECOMMENDED) use MobaXterm_Personal instead of PuTTy -> MobaXterm has a much better interactive platform with upload, download, etc.
+4. filezilla -> https://filezilla-project.org/
