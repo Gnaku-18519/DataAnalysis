@@ -1,4 +1,3 @@
-%{
 The main difference in creating options is:
 For optimoptions, you include the solver name as the first argument. options = optimoptions(SolverName,Name,Value,...)
 For optimset, the syntax does not include the solver name. options = optimset(Name,Value,...)
@@ -49,4 +48,3 @@ TolFun (fminsearch):
 TolX (fminbnd, fminsearch, fzero, lsqnonneg):
   The termination tolerance for x.
   The default value is 1.e-4, except for fzero, which has a default value of eps (= 2.2204e-16), and lsqnonneg, which has a default value of 10*eps*norm(c,1)*length(c).
-%}
