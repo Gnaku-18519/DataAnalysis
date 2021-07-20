@@ -1,0 +1,9 @@
+There are four ways how Matlab code gets speed up:
+1. JIT: compiling at runtime helps with loops but seems to speed up (or at least interact with) other parts of the code as well.
+2. Implementing functions in C/C++: There's a bunch of Matlab/Octave functions that are implemented in Matlab/Octave.
+                                    At every release, there's a bunch more of them that get made into built-ins.
+3. Multithreading: There's a list of functions that have multithreaded implementations, which will speed up function calls.
+4. Generally more efficient implementations: For example, the median filter got a massive speed boost for integer inputs a few releases ago.
+
+However, a major concern of Octave developers is to make sure (Matlab) functionality is there at all, 
+whereas performance increase seems to have been a focus of Matlab development in the last few years.
