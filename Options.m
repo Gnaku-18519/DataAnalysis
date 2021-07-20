@@ -1,14 +1,17 @@
-The main difference in creating options is:
-1. Optimoptions: you include the solver name as the first argument. options = optimoptions(SolverName,Name,Value,...)
-		 👆 intlinprog only uses optimoptions()
-2. Optimset: the syntax does not include the solver name. options = optimset(Name,Value,...)
-	     👆 Octave only supports optimset()
-In both cases, you can query or change options by using dot notation.
-Also, optimoptions organizes options by solver, with a more focused and comprehensive display than optimset:
-	a. Creates and modifies only the options that apply to a solver
-	b. Shows your option choices and default values for a specific solver/algorithm
-	c. Displays links for more information on solver options and other available solver algorithms
-	
+%The main difference in creating options is:
+%1. Optimoptions: you include the solver name as the first argument.
+	options = optimoptions(SolverName,Name,Value,...)
+	%👆 intlinprog only uses optimoptions()
+%2. Optimset: the syntax does not include the solver name.
+	options = optimset(Name,Value,...)
+	%👆 Octave only supports optimset()
+%In both cases, you can query or change options by using dot notation.
+%Also, optimoptions organizes options by solver, with a more focused and comprehensive display than optimset:
+%	a. Creates and modifies only the options that apply to a solver
+%	b. Shows your option choices and default values for a specific solver/algorithm
+%	c. Displays links for more information on solver options and other available solver algorithms
+
+%{
 Display (fminbnd, fminsearch, fzero, lsqnonneg):
   A flag indicating whether intermediate steps appear on the screen.
 	'notify' (default) displays output only if the function does not converge.
@@ -54,3 +57,4 @@ TolFun (fminsearch):
 TolX (fminbnd, fminsearch, fzero, lsqnonneg):
   The termination tolerance for x.
   The default value is 1.e-4, except for fzero, which has a default value of eps (= 2.2204e-16), and lsqnonneg, which has a default value of 10*eps*norm(c,1)*length(c).
+%}
