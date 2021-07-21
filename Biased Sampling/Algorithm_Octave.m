@@ -88,7 +88,7 @@ function Algorithm_Octave()
     
     %output
     pi1_output_mid = pi1_output_mid(pi1_output_mid~=0); %remove all 0 elements in pi1_output_mid
-    filename = 'D:\ZZZ.SYR\SOURCE\DataOutput_modified.xlsx';
+    filename = 'D:\Octave\DataOutput_modified.xlsx';
     T = table(pi1_output_true);
     writetable(T, filename, 'Sheet', 1);
     T = table(pi1_output_init);
