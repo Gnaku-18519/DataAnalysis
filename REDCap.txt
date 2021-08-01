@@ -5,3 +5,4 @@ Cross sectional study design -> data that is collected once per person
 Repeat measures study design -> any data collected more than once for a single person,
                                 often when collecting data on a participant over time but not necessarily
 Longitudinal study design -> specific type of repeated measures study where data is collected numerous times for one participant over time
+Data structure / format -> how the rows and columns of the data set are organized to handle the study design
