@@ -14,12 +14,15 @@ Data structure / format -> how the rows and columns of the data set are organize
                                                            -> repeatability of measure -> compare one method of measuring RBC to another
                                                      Cons: a. time is not in its own discrete column
                                                            b. outcomes live in numerous columns, hard to summarize
-                                                           c. gets clunky with many outcomes over many events, as we need to generate a new variable/column each time we have a new event (slow!)
+                                                           c. gets clunky with many outcomes over many events, 
+                                                              as we need to generate a new variable/column each time we have a new event (slow!)
                                       3. long format -> numerous rows/person, 1 column/outcome
                                                      Pros: a. time/encounter is a discrete variable in its own column
                                                            b. outcomes live in one column instead of numerous
                                                            c. shares the same underlying concept that is used to hold data in medical record systems
-                                                           d. adds another visit for the same person only requires the addition of one new row of data rather than many new columns (wide format)
+                                                           d. adds another visit for the same person only requires the addition of one new row of data, 
+                                                              rather than many new columns (wide format)
                                                            e. fast and flexible
-                                                           f. gold standard for data collection (eg. scheduling module requires longitudinal, more complicated survey designs are easier)
+                                                           f. gold standard for data collection 
+                                                              (eg. scheduling module requires longitudinal, more complicated survey designs are easier)
                                                      Cons: 
