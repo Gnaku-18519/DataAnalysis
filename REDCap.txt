@@ -6,3 +6,6 @@ Repeat measures study design -> any data collected more than once for a single p
                                 often when collecting data on a participant over time but not necessarily
 Longitudinal study design -> specific type of repeated measures study where data is collected numerous times for one participant over time
 Data structure / format -> how the rows and columns of the data set are organized to handle the study design
+                           including: 1. simple data structure -> basic and simplest structure, suited for cross sectional design studies
+                                      2. wide format
+                                      3. long format
