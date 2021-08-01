@@ -8,4 +8,10 @@ Longitudinal study design -> specific type of repeated measures study where data
 Data structure / format -> how the rows and columns of the data set are organized to handle the study design
                            including: 1. simple data structure -> basic and simplest structure, suited for cross sectional design studies (1 row/person, 1 column/outcome)
                                       2. wide format -> repeated events (1 row/person, repeat columns used to handle the repeat measures over time)
+                                                     Pros: can work well with certain study designs
+                                                           -> pre-post -> 1 measure before and after intervention
+                                                           -> repeatability of measure -> compare one method of measuring RBC to another
+                                                     Cons: a. time is not in its own discrete column
+                                                           b. outcomes live in numerous columns, hard to summarize
+                                                           c. gets clunky with many outcomes over many events, as we need to generate a new variable/column each time we have a new event (slow!)
                                       3. long format
