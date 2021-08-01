@@ -25,4 +25,4 @@ Data structure / format -> how the rows and columns of the data set are organize
                                                            e. fast and flexible
                                                            f. gold standard for data collection 
                                                               (eg. scheduling module requires longitudinal, more complicated survey designs are easier)
-                                                     Cons: 
+
