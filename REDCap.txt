@@ -36,3 +36,7 @@ Survey Design ******************************************************************
 5. If needed, change the "Survey status" part in the "Survey settings" between "Survey active" and "Survey offline"
 6. Click the survey name to add questions
 7. Use the "Manage Survey Participants" on the left column and the "Open public survey" to preview the survey (not for collecting data)
+
+Collect Data ***************************************************************************************
+1. Go to the project
+2. "Collect Data" -> "Create New Record" -> "Select Events"
