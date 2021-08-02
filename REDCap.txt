@@ -28,5 +28,7 @@ Data structure / format -> how the rows and columns of the data set are organize
 
 Survey Design ***************************************************************************************
 1. Build a new project
-2. Enable the "Use surveys in this project" button in the Main project settings
-3. 
+2. Enable the "Use surveys in this project" button in the "Main project settings" section
+3. Use the "Online Designer" button in the "Design your data collection instruments & enable your surveys" section
+   3.1. Click the "Enable" button on the default instrument
+   3.2. New function -> Survey Expiration time (optional) &  Redirect to a URL (allows you to specify the website/URL you'd like the users be taken to after finish the survey)
