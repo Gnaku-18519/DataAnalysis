@@ -1,6 +1,6 @@
 REDCap does not define the data structure for the user.
 
-Terms:
+Terms ***************************************************************************************
 Cross sectional study design -> data that is collected once per person
 Repeat measures study design -> any data collected more than once for a single person,
                                 often when collecting data on a participant over time but not necessarily
@@ -26,3 +26,7 @@ Data structure / format -> how the rows and columns of the data set are organize
                                                            f. gold standard for data collection 
                                                               (eg. scheduling module requires longitudinal, more complicated survey designs are easier)
 
+Project Types ***************************************************************************************
+Single Survey
+Data Entry Forms
+Single Survey + Data Entry Forms
