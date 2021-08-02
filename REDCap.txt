@@ -31,4 +31,6 @@ Survey Design ******************************************************************
 2. Enable the "Use surveys in this project" button in the "Main project settings" section
 3. Use the "Online Designer" button in the "Design your data collection instruments & enable your surveys" section
    3.1. Click the "Enable" button on the default instrument
-   3.2. New function -> Survey Expiration time (optional) &  Redirect to a URL (allows you to specify the website/URL you'd like the users be taken to after finish the survey)
+   3.2. New functions -> Survey Expiration time (optional) &  Redirect to a URL (allows you to specify the URL you'd like the users be taken to after finishing the survey)
+4. Save and if it needs further change, use the "Survey settings" button on the "Online Designer" tab
+5. If needed, change the "Survey status" part in the "Survey settings" between "Survey active" and "Survey offline"
