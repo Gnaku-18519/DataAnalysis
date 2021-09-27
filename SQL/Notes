@@ -4,4 +4,4 @@ DBMS = Database Management System
                    SQL -- Structured Query Language
     2. Non-SQL: no tables or relationships, don't understand SQL
 
-SELECT * --select all
+SELECT * -- select all
