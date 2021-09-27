@@ -3,3 +3,5 @@ DBMS = Database Management System
     1. Relational (RDBMS): store data in tables that are linked to each other using relationships
                    SQL -- Structured Query Language
     2. Non-SQL: no tables or relationships, don't understand SQL
+
+SELECT * --select all
