@@ -19,3 +19,4 @@ Foreign Key: a column or set of columns that allow us to establish a referential
              -> helps to match the foreign key column data with the data of the referenced table data
              -> the referenced table is called the parent table and the table that involves a foreign key is called the child table
              -> if a foreign key references another column of the same table, this reference type is called a self-reference
+
