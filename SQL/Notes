@@ -20,3 +20,16 @@ Foreign Key: a column or set of columns that allow us to establish a referential
              -> the referenced table is called the parent table and the table that involves a foreign key is called the child table
              -> if a foreign key references another column of the same table, this reference type is called a self-reference
 
+Inner Join                                                                       |  Outer Join                                                                             
+Only matching common records or values from both the database tables             |  All the records from the database tables are taken (no require for common ID)
+All rows will have real value                                                    |  Some entries may return a null value
+No alternatives or variants                                                      |  Outer join can be left, right, or full join
+Optimizer can be used as it gives many valuable options                          |  Optimizer use limited as the joins take all the entries (not practical)
+Have the least entries and will be able to update the user requirements          |  Usage must be monitored and checked thoroughly
+Slower                                                                           |  (Especially left outer joins) faster and better performance in most cases
+Conditions are mandatory to be satisfied                                         |  No conditions that we have to meet necessarily
+No output of those entries having no matching with the entries of another table  |  Get null if entries of one table do not have any matching with another table
+Straightforward process (matching not be considered for left or right tables)    |  Check either condition is given for left or right tables 
+                                                                                 |      and entry is considered accordingly except full outer join
+Recommended if a related data entry is needed                                    |  More suitable for the others
+    as per the customer requirement or database design                           |
