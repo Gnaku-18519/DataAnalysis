@@ -4,6 +4,8 @@ SELECT name
 FROM Customer
 WHERE referee_id IS NULL
 ```
+# String Pattern
+* name not starting with 'M': ```name not like 'M%'```
 # Change Column Name
 ```SQL
 SELECT customers.name as 'Customers'
@@ -12,7 +14,7 @@ WHERE customers.id not in (
   SELECT customerid from orders
 );
 ```
-# Case
+# Case (interchangable with Where)
 ```SQL
 SELECT xxx,
 CASE
@@ -23,5 +25,9 @@ CASE
 END AS yyy
 FROM zzz
 ```
-# String Pattern
-* name not starting with 'M': ```name not like 'M%'```
+# Update
+```SQL
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition
+```
