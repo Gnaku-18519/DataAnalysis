@@ -13,7 +13,6 @@ WHERE customers.id not in (
 );
 ```
 # Case
-Syntax:
 ```SQL
 SELECT xxx,
 CASE
