@@ -6,6 +6,7 @@ WHERE referee_id IS NULL
 ```
 # String Pattern
 * name not starting with 'M': ```name not like 'M%'```
+* ```CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name))))``` AS name, where ```LEFT(name, 1)``` is equivalent to ```SUBSTRING(name, 1, 1)```
 # Change Column Name
 ```SQL
 SELECT customers.name as 'Customers'
