@@ -102,5 +102,5 @@ FROM     Sells
 WHERE    beer = ‘Bud’;
 ```
 ## Group-By and Having
-<img width="442" alt="image" src="https://user-images.githubusercontent.com/84046974/192130426-3a83b191-7d15-4517-8143-4e5cebab7f72.png">
+<img width="419" alt="image" src="https://user-images.githubusercontent.com/84046974/192130486-e2b996c4-b9c1-4071-bf11-c7a78841c9a0.png">
 
