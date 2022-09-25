@@ -65,7 +65,7 @@
 <img width="474" alt="image" src="https://user-images.githubusercontent.com/84046974/192128526-fbfc4348-4356-4f5b-8f41-374f4d179138.png">
 
 # SQL (case-insensitive)
-```
+```sql
 SELECT    S            --pull out from each group the values requested in S; if any aggregation, then apply within the group
                        --may contain attributes a1, …, ak and/or any aggregates but NO OTHER ATTRIBUTES
 FROM      R1, …, Rn    --enumerate all combinations of tuples from R1, …, Rn
@@ -82,7 +82,7 @@ HAVING    C2           --keep only groups satisfying condition C2 (on aggregate 
 <img width="356" alt="image" src="https://user-images.githubusercontent.com/84046974/192130114-1baa801a-11e8-4807-b2ef-66068c3de52a.png">
 
 * Disambiguating Attribute
-```
+```sql
 SELECT   Person.name
 FROM     Person x, Purchase y, Product z
 WHERE    x.name=y.buyer AND y.product=z.name AND z.category=“telephony”
@@ -96,7 +96,7 @@ WHERE    b1.manf = b2.manf AND b1.name < b2.name;
 ## Aggregation
 * SUM, AVG, COUNT, MIN, and MAX can be applied to a column in a SELECT clause to produce that aggregation on the column
 * COUNT(\*) counts the number of tuples
-```
+```sql
 SELECT   AVG(price)
 FROM     Sells
 WHERE    beer = ‘Bud’;
