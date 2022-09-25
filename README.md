@@ -64,3 +64,43 @@
     2. entities have null in attributes that don’t belong to them
 <img width="474" alt="image" src="https://user-images.githubusercontent.com/84046974/192128526-fbfc4348-4356-4f5b-8f41-374f4d179138.png">
 
+# SQL (case-insensitive)
+```
+SELECT    S            --pull out from each group the values requested in S; if any aggregation, then apply within the group
+                       --may contain attributes a1, …, ak and/or any aggregates but NO OTHER ATTRIBUTES
+FROM      R1, …, Rn    --enumerate all combinations of tuples from R1, …, Rn
+WHERE     C1           --keep only combinations satisfying condition C1 (on the attributes in R1, …, Rn)
+GROUP BY  a1, …, ak    --group them by a1, …, ak
+HAVING    C2           --keep only groups satisfying condition C2 (on aggregate expressions)
+```
+## Select-From-Where Statements
+* Case-INSENSITIVE
+* Syntax
+  * Not equal ```<>```
+  * Pattern matching: ```s LIKE p```
+* Multi-Relation Query
+<img width="356" alt="image" src="https://user-images.githubusercontent.com/84046974/192130114-1baa801a-11e8-4807-b2ef-66068c3de52a.png">
+
+* Disambiguating Attribute
+```
+SELECT   Person.name
+FROM     Person x, Purchase y, Product z
+WHERE    x.name=y.buyer AND y.product=z.name AND z.category=“telephony”
+```
+* Explicit Tuple Variables
+```sql
+SELECT   b1.name, b2.name
+FROM     Beers b1, Beers b2
+WHERE    b1.manf = b2.manf AND b1.name < b2.name;
+```
+## Aggregation
+* SUM, AVG, COUNT, MIN, and MAX can be applied to a column in a SELECT clause to produce that aggregation on the column
+* COUNT(\*) counts the number of tuples
+```
+SELECT   AVG(price)
+FROM     Sells
+WHERE    beer = ‘Bud’;
+```
+## Group-By and Having
+<img width="442" alt="image" src="https://user-images.githubusercontent.com/84046974/192130426-3a83b191-7d15-4517-8143-4e5cebab7f72.png">
+
