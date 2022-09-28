@@ -102,5 +102,6 @@ FROM     Sells
 WHERE    beer = ‘Bud’;
 ```
 ## Group-By and Having
+* "**for each** such bar" <=> ```GROUP BY bar```
 <img width="419" alt="image" src="https://user-images.githubusercontent.com/84046974/192130486-e2b996c4-b9c1-4071-bf11-c7a78841c9a0.png">
 
