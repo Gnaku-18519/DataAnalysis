@@ -117,6 +117,7 @@ WHERE    beer = ‘Bud’;
 * Subquery
   * If a subquery is guaranteed to produce one tuple, then the subquery can be used as a value
 <img width="365" alt="image" src="https://user-images.githubusercontent.com/84046974/192937520-e8e53094-8471-44cc-948d-c94ec1b9eaed.png">
+
 * Boolean Operators
   * IN: ```<tuple> IN <relation>```, where ```<relation>``` is always a subquery
   * EXISTS: ```EXISTS( <relation> )``` is true if and only if ```<relation>``` is **not empty**
