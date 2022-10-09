@@ -128,3 +128,56 @@ WHERE    beer = ‘Bud’;
   * ALL:
     * ```x <> ALL( <relation> )``` is true if and only if for every tuple t in the relation, x is not equal to t -> x is not a member of the relation
     * ```x >= ALL( <relation> )``` is true if there is no tuple larger than x in the relation
+
+## Define a Database Schema
+```sql
+CREATE TABLE Sells (
+    bar CHAR(20),
+    beer VARCHAR(20),
+    price REAL,
+    PRIMARY KEY (bar, beer)
+);
+
+DROP TABLE Sells;
+
+CREATE TABLE Drinkers (
+    name CHAR(30) PRIMARY KEY,
+    addr CHAR(50) DEFAULT ‘123 Sesame St.’,
+    phone CHAR(16)
+);
+```
+
+# Storage
+## Typical Architecture
+<img width="425" alt="image" src="https://user-images.githubusercontent.com/84046974/194734284-e5e23157-09f7-4ab5-b636-0bf4917989a3.png">
+
+## Disk
+* Secondary storage device of choice, *random access* vs. *sequential*
+* Data is stored and retrieved in units called disk blocks or pages
+* Time to access (read/write) a disk block:
+  * seek time (moving arms to position disk head on track) - 1 to 20 ms
+  * rotational delay (waiting for block to rotate under head) - 0 to 10 ms
+  * transfer time (actually moving data to/from disk surface) - 1 ms per 4KB page
+* Key to lower I/O cost: **reduce seek/rotation delays**  
+<img width="464" alt="image" src="https://user-images.githubusercontent.com/84046974/194734335-2b447eed-18a9-4917-baab-9eedba098ff7.png">
+
+## Buffer Management in a DBMS
+* Request a page
+  * not in pool -> choose a frame for replacement -> if that frame is dirty (**dirty bit**), write it to disk -> read requested page into chosen frame
+  * pin the page (**pin count**: a page is a candidate for replacement iff pin count = 0) and return its address
+
+<img width="394" alt="image" src="https://user-images.githubusercontent.com/84046974/194734383-60ad1d18-bfad-48d9-be87-b30ad0b66196.png">
+
+## Heap Files (Unordered)
+* To support record level operations, we must:
+  * keep track of the pages in a file
+  * keep track of free space on pages
+  * keep track of the records on a page
+<img width="399" alt="image" src="https://user-images.githubusercontent.com/84046974/194734507-da1baeb6-1042-49f5-8fb9-94704e055c38.png">
+<img width="367" alt="image" src="https://user-images.githubusercontent.com/84046974/194734511-eced98b6-83f0-486e-a2e5-3c2a1ff68380.png">
+<img width="418" alt="image" src="https://user-images.githubusercontent.com/84046974/194734519-1a7d6077-7e73-4102-94db-5e520eee29c0.png">
+<img width="431" alt="image" src="https://user-images.githubusercontent.com/84046974/194734532-7798cdf9-6514-441d-b59d-fb829e2bc593.png">
+
+
+
+
