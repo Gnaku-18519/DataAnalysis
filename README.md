@@ -64,6 +64,9 @@
     2. entities have null in attributes that don’t belong to them
 <img width="474" alt="image" src="https://user-images.githubusercontent.com/84046974/192128526-fbfc4348-4356-4f5b-8f41-374f4d179138.png">
 
+### Summary
+
+
 # SQL (case-insensitive)
 ```sql
 SELECT    S            --pull out from each group the values requested in S; if any aggregation, then apply within the group
@@ -153,7 +156,7 @@ CREATE TABLE Drinkers (
 
 ## Disk
 * Secondary storage device of choice, *random access* vs. *sequential*
-* Data is stored and retrieved in units called disk blocks or pages
+* Data is stored and retrieved in units called *disk blocks* or *pages*
 * Time to access (read/write) a disk block:
   * seek time (moving arms to position disk head on track) - 1 to 20 ms
   * rotational delay (waiting for block to rotate under head) - 0 to 10 ms
@@ -162,18 +165,48 @@ CREATE TABLE Drinkers (
 <img width="464" alt="image" src="https://user-images.githubusercontent.com/84046974/194734335-2b447eed-18a9-4917-baab-9eedba098ff7.png">
 
 ## Buffer Management in a DBMS
+* Disk Space Management is the lowest layer of DBMS software manages space on disk
+  * higher layer can call upon this layer to read / write / allocate / delete a page
 * Request a page
   * not in pool -> choose a frame for replacement -> if that frame is dirty (**dirty bit**), write it to disk -> read requested page into chosen frame
-  * pin the page (**pin count**: a page is a candidate for replacement iff pin count = 0) and return its address
+  * **pin** the page (**pin count**: a page is a candidate for replacement iff pin count = 0) and return its address
+* Buffer Replacement Policy
+  * big impact on the number of I/Os -- depending on the access pattern
+  * sequential flooding = nasty situation caused by LRU + repeated sequential scans
+    * number of buffer frames < number of pages in file -> each page request causes an I/O -> MRU much better in this situation
 
 <img width="394" alt="image" src="https://user-images.githubusercontent.com/84046974/194734383-60ad1d18-bfad-48d9-be87-b30ad0b66196.png">
 
-## Heap Files (Unordered)
+## Heap Files (**Unordered**)
+* Higher levels of DBMS operate on **records** and **file of records**
+  * file = collection of pages, each containing a collection of records
 * To support record level operations, we must:
   * keep track of the pages in a file
   * keep track of free space on pages
   * keep track of the records on a page
-<img width="399" alt="image" src="https://user-images.githubusercontent.com/84046974/194734507-da1baeb6-1042-49f5-8fb9-94704e055c38.png">
-<img width="367" alt="image" src="https://user-images.githubusercontent.com/84046974/194734511-eced98b6-83f0-486e-a2e5-3c2a1ff68380.png">
-<img width="418" alt="image" src="https://user-images.githubusercontent.com/84046974/194734519-1a7d6077-7e73-4102-94db-5e520eee29c0.png">
-<img width="431" alt="image" src="https://user-images.githubusercontent.com/84046974/194734532-7798cdf9-6514-441d-b59d-fb829e2bc593.png">
+* System Catalogs: **catalogs are themselves stored as relations**
+
+<img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734507-da1baeb6-1042-49f5-8fb9-94704e055c38.png" align="left">
+<img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734511-eced98b6-83f0-486e-a2e5-3c2a1ff68380.png">
+<img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734519-1a7d6077-7e73-4102-94db-5e520eee29c0.png" align="left">
+<img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734532-7798cdf9-6514-441d-b59d-fb829e2bc593.png">
+<img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968765-fe9908d3-32bf-4c75-84c1-cb392d1ecf19.png" align="left">
+<img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968945-01b7321a-2cf1-485c-ba90-77eca9142420.png">
+
+## File Organization and Indexing
+* Sorted files on an attribute or a combination of attributes (called *search keys* or *keys*)
+* B+ Tree
+  * insert / delete at log<sub>F</sub>N cost
+    * keep tree height-balanced
+    * F = fanout, N = number of leaf pages
+  * minimum 50% occupancy (**except for root**)
+    * each node contains d <= m <= 2d entries
+    * d = the order of the tree
+  * IN PRACTICE
+    * typical order = 100
+    * typical fill-factor = 67%
+    * average fanout = 133
+  * insertion = split + copy up (with a suitable separator key -- continue to appear in the leaf) / push up (the separator -- only appear once) + (maybe) grow height
+  * deletion = redistribute + borrow from sibling (toss) = merge + delete parent entry (pull down) + (maybe) decrease height
+  
+<img width="440" alt="image" src="https://user-images.githubusercontent.com/84046974/196970901-1a701821-bbf0-4cb0-bbef-93edfecc96d8.png">
