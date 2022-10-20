@@ -65,7 +65,21 @@
 <img width="474" alt="image" src="https://user-images.githubusercontent.com/84046974/192128526-fbfc4348-4356-4f5b-8f41-374f4d179138.png">
 
 ### Summary
-
+* 1-1 relationship: Store <--> Best-Seller
+  * Store(<ins>store_id</ins>, address)
+  * Best-Seller(<ins>item_id</ins>, number_sold, **store_id**)
+* 1-many relationship: Store <--- Beverage
+  * Store(<ins>store_id</ins>, address)
+  * Beverage(<ins>beverage_id</ins>, alcohol_percentage, **store_id**)
+* many-many relationship: Beverage ---- Shelf
+  * Beverage(<ins>beverage_id</ins>, alcohol_percentage)
+  * Shelf(<ins>shelf_id</ins>, floor_number)
+  * **Associate(<ins>associate_id</ins>, beverage_id, shelf_id)**
+* weak entity: Store (--- Drop-Off Box
+  * Drop-Off Box(**<ins>store_id</ins> (foreign key)**, **<ins>box_id</ins>**, customer_name, timestamp)
+* is-a hierarchy: Gatorade is a Beverage (with object-oriented approach)
+  * Beverage(<ins>beverage_id</ins>, alcohol_percentage)
+  * Gatorade(**<ins>beverage_id</ins>, alcohol_percentage**, flavor, color)
 
 # SQL (case-insensitive)
 ```sql
