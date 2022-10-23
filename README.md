@@ -115,8 +115,8 @@
   * Null approach -- ***one table takes all*** -> parent = all entities with the basic + additional / Null
     * **Beverage**(<ins>beverage_id</ins>, alcohol_percentage, flavor, color)
 
-# SQL (case-insensitive)
-## Create Table
+# SQL
+## Define a Database Schema
 ```sql
 CREATE TABLE Students (sid CHAR(20), name CHAR(30), login CHAR(20), age INTEGER, gpa REAL,
                        UNIQUE (name, age), CONSTRAINT StudentsKey PRIMARY KEY (sid))
@@ -125,6 +125,8 @@ CREATE TABLE Students (sid CHAR(20), name CHAR(30), login CHAR(20), age INTEGER,
 CREATE TABLE Enrolled (studid CHAR(20), cid CHAR(20), grade CHAR(10),
                        PRIMARY KEY (studid, cid),
                        FOREIGN KEY (studid) REFERENCES Students)
+
+DROP TABLE Students;
 ```
 
 ## Query Template
@@ -148,7 +150,7 @@ HAVING    C2           --keep only groups satisfying condition C2 (on aggregate 
 ```sql
 SELECT   Person.name
 FROM     Person x, Purchase y, Product z
-WHERE    x.name=y.buyer AND y.product=z.name AND z.category=“telephony”
+WHERE    x.name = y.buyer AND y.product = z.name AND z.category = "telephony";
 ```
 * Explicit Tuple Variables
 ```sql
@@ -157,19 +159,54 @@ FROM     Beers b1, Beers b2
 WHERE    b1.manf = b2.manf AND b1.name < b2.name;
 ```
 ## Aggregation
-* SUM, AVG, COUNT, MIN, and MAX can be applied to a column in a SELECT clause to produce that aggregation on the column
+* SUM([DISTINCT]), AVG([DISTINCT]), COUNT([DISTINCT]), MIN, and MAX can be applied to a column in a SELECT clause to produce that aggregation on the column
 * COUNT(\*) counts the number of tuples
 ```sql
 SELECT   AVG(price)
 FROM     Sells
-WHERE    beer = ‘Bud’;
+WHERE    beer = 'Bud';
 ```
 ## Group-By and Having
 * "**for each** such bar" <=> ```GROUP BY bar```
 * Difference between ```WHERE``` and ```HAVING```: ```WHERE``` condition happens before ```GROUP BY```, and ```HAVING``` happens after ```GROUP BY```
+```sql
+SELECT department_name, AVG(jobs.max_salary) AS average_max_salary
+FROM employees, jobs, departments
+WHERE employees.job_id = jobs.job_id AND employees.department_id = departments.department_id
+GROUP BY department_name
+HAVING average_max_salary > 8000;
+```
 <img width="419" alt="image" src="https://user-images.githubusercontent.com/84046974/192130486-e2b996c4-b9c1-4071-bf11-c7a78841c9a0.png">
 
+## Union, Intersect and Except
+```sql
+SELECT S.sname
+FROM Sailors S, Reserves R, Boats B
+WHERE S.sicl = R.sid AND R.bid = B.bid AND B.color = 'red'
+UNION -- INTERSET or EXCEPT
+SELECT S2.sname
+FROM Sailors S2, Boats B2, Reserves H2
+WHERE S2.sid = H2.sid AND R2.bid = B2.bicl AND B2.color = 'green';
+```
+
+## Subquery & Nested Queries
+* If a subquery is guaranteed to produce one tuple, then the subquery can be used as a value
+```sql
+SELECT employee_id
+FROM employees
+WHERE NOT EXISTS (SELECT * 
+                  FROM dependents 
+                  WHERE employees.employee_id = dependents.employee_id);
+
+SELECT S.sid
+FROM Sailors S
+WHERE S.rating >= ALL (SELECT S2.rating
+                       FROM Sailors S2);
+```
+<img width="365" alt="image" src="https://user-images.githubusercontent.com/84046974/192937520-e8e53094-8471-44cc-948d-c94ec1b9eaed.png">
+
 ## More Details
+* Remove duplicates: ```SELECT DISTINCT select-list```
 * Rename: ```SELECT name AS beer```
 * Expression: ```SELECT price * 7 AS priceInYuan```
 * NULL value: ```x IS NULL```
@@ -177,11 +214,7 @@ WHERE    beer = ‘Bud’;
   * Inapplicable
   * When any value is compared with NULL, the truth value is **UNKNOWN**
     * A query only produces a tuple in the answer if its truth value for the WHERE clause is TRUE (not FALSE or UNKNOWN)
-* Subquery
-  * If a subquery is guaranteed to produce one tuple, then the subquery can be used as a value
-<img width="365" alt="image" src="https://user-images.githubusercontent.com/84046974/192937520-e8e53094-8471-44cc-948d-c94ec1b9eaed.png">
-
-* Boolean Operators
+* Boolean operators
   * IN: ```<tuple> IN <relation>```, where ```<relation>``` is always a subquery
   * EXISTS: ```EXISTS( <relation> )``` is true if and only if ```<relation>``` is **not empty**
   * ANY:
@@ -191,23 +224,12 @@ WHERE    beer = ‘Bud’;
   * ALL:
     * ```x <> ALL( <relation> )``` is true if and only if for every tuple t in the relation, x is not equal to t -> x is not a member of the relation
     * ```x >= ALL( <relation> )``` is true if there is no tuple larger than x in the relation
-
-## Define a Database Schema
+* Use a table multiple times
 ```sql
-CREATE TABLE Sells (
-    bar CHAR(20),
-    beer VARCHAR(20),
-    price REAL,
-    PRIMARY KEY (bar, beer)
-);
-
-DROP TABLE Sells;
-
-CREATE TABLE Drinkers (
-    name CHAR(30) PRIMARY KEY,
-    addr CHAR(50) DEFAULT ‘123 Sesame St.’,
-    phone CHAR(16)
-);
+SELECT e1.first_name, e2.first_name
+FROM employees e1, employees e2
+WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
+      e1.salary > 10000 AND e2.salary > 10000 AND e1.salary >= e2.salary AND e1.last_name <> e2.last_name;
 ```
 
 # Storage
