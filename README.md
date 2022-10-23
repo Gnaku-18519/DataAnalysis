@@ -290,5 +290,6 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
     * average fanout = 133
   * insertion = split + copy up (with a suitable separator key -- continue to appear in the leaf) / push up (the separator -- only appear once) + (maybe) grow height
   * deletion = redistribute + borrow from sibling (toss) = merge + delete parent entry (pull down) + (maybe) decrease height
+  * graphical illustration: https://www.cs.princeton.edu/courses/archive/fall08/cos597A/Notes/BplusInsertDelete.pdf
   
 <img width="440" alt="image" src="https://user-images.githubusercontent.com/84046974/196970901-1a701821-bbf0-4cb0-bbef-93edfecc96d8.png">
