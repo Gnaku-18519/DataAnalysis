@@ -77,10 +77,15 @@
   * **Associate(<ins>associate_id</ins>, beverage_id, shelf_id)**
 * weak entity: Store (--- Drop-Off Box
   * Drop-Off Box(**<ins>store_id</ins> (foreign key)**, **<ins>box_id</ins>**, customer_name, timestamp)
-* is-a hierarchy: Gatorade is a Beverage (with object-oriented approach)
-  * Beverage(<ins>beverage_id</ins>, alcohol_percentage)
-  * Gatorade(**<ins>beverage_id</ins>, alcohol_percentage**, flavor, color)
-
+* is-a hierarchy: Gatorade is a Beverage
+  * Object-Oriented approach -- ***split the entities*** -> parent = entities with only the basic, child = entities with the basic + additional
+    * Beverage(<ins>beverage_id</ins>, alcohol_percentage)
+    * Gatorade(**<ins>beverage_id</ins>, alcohol_percentage**, flavor, color)
+  * ER approach -- ***split the attributes*** -> parent = all entities with the basic, child = entities with the additional
+    * Beverage(<ins>beverage_id</ins>, alcohol_percentage)
+    * Gatorade(**<ins>beverage_id</ins>**, flavor, color)
+  * Null approach -- ***one table takes all*** -> parent = all entities with the basic + additional / Null
+    * **Beverage**(<ins>beverage_id</ins>, alcohol_percentage, flavor, color)
 # SQL (case-insensitive)
 ```sql
 SELECT    S            --pull out from each group the values requested in S; if any aggregation, then apply within the group
