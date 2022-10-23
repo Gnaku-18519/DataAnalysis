@@ -1,4 +1,18 @@
 # Database
+## DBMS
+### choose a database system VS simply store data in operating system files
+* DBMS is good at
+  * data independence and efficient access
+  * reduced application development time
+  * data integrity and security
+  * data administration
+  * concurrent access and crash recovery
+* DBMS is bad at
+  * too large that it has to be stored in secondary storage devices (eg. disks, tapes)
+  * increased cost and overhead of purchasing and maintaining
+### logical data independence
+* users can be shielded from changes in the logical structure of the data, or changes in the choice of relations to be stored
+* help to prevent data loss and corruption in the data processing chain 
 ## ER Diagram
 * Entity (eg. Product)
 * Attribute (eg. price, name, category)
@@ -86,6 +100,7 @@
     * Gatorade(**<ins>beverage_id</ins>**, flavor, color)
   * Null approach -- ***one table takes all*** -> parent = all entities with the basic + additional / Null
     * **Beverage**(<ins>beverage_id</ins>, alcohol_percentage, flavor, color)
+
 # SQL (case-insensitive)
 ```sql
 SELECT    S            --pull out from each group the values requested in S; if any aggregation, then apply within the group
