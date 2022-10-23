@@ -15,10 +15,12 @@
 * help to prevent data loss and corruption in the data processing chain 
 ## ER Diagram
 * Entity (eg. Product)
+  * Entity Set should have more than one attributes or is the "many" in many-one or many-many relationships
 * Attribute (eg. price, name, category)
-  * Domain: the atomic type of every attribute
-* Entity Set should have more than one attributes or is the "many" in many-one or many-many relationships
-<img width="300" alt="image" src="https://user-images.githubusercontent.com/84046974/192125834-88067859-e573-4b8a-bdd9-22702db1b5e6.png">
+  * Domain: the atomic type of every attribute (eg. the domain of name could be a set of 20-character string)
+* Key = a minimal set of attributes whose values uniquely identify an entity in the set
+  * Candidacy Key -> could have many
+  * Primary Key -> only one
 
 ### Subclass = special case = fewer entities = more properties
 <img width="211" alt="image" src="https://user-images.githubusercontent.com/84046974/192126121-e37ae113-ca89-428b-8bda-af4f14bcf36f.png">
@@ -36,12 +38,22 @@
 2. Avoid redundancy -- waste space and (more importantly) encourage inconsistency
 3. KISS
 ## Relations
-### Attributes of relationships is not necessary, but useful (especially in many-many relationships, as the attribute cannot be associated to only one entity)
-### Binary
+### Attributes of Relationships
+* Descriptive Attributes -- **not necessary, but useful (especially in many-many relationships, as the attribute cannot be associated to only one entity)**
+  * used to record information about the **relationship**, rather than about any one of the participating entities
+  * a relationship must be uniquely identified by the participating entities, without reference to the descriptive attributes
+<img width="471" alt="image" src="https://user-images.githubusercontent.com/84046974/197372770-e991fd1e-4289-4dd5-817a-a2b60df403fb.png">
+
+* Instance of Relationships
+  * a 'snapshot' ofthe relationship set at some instant in time
+<img width="353" alt="image" src="https://user-images.githubusercontent.com/84046974/197372822-5f4131da-45bd-4d33-9c12-2e8ef16a8fec.png">
+
+### Binary (arrow = uniquely determine)
 <img width="400" alt="image" src="https://user-images.githubusercontent.com/84046974/192125903-34a3fd89-037d-4a95-85e6-162defa9baca.png">
 
+### Ternary
 ### Multiway
-<img width="400" alt="image" src="https://user-images.githubusercontent.com/84046974/192125974-13cb5685-4f79-4b5a-935b-d310e726ee9e.png">
+<img width="428" alt="image" src="https://user-images.githubusercontent.com/84046974/197372948-3a0a094c-111f-434a-8625-b9b8a24dd60b.png">
 
 ## Modeling Constraints
 * Keys (**underline in ER**): social security number uniquely identifies a person
