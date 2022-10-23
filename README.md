@@ -13,14 +13,13 @@
 ### logical data independence
 * users can be shielded from changes in the logical structure of the data, or changes in the choice of relations to be stored
 * help to prevent data loss and corruption in the data processing chain 
+
 ## ER Diagram
 * Entity (eg. Product)
   * Entity Set should have more than one attributes or is the "many" in many-one or many-many relationships
 * Attribute (eg. price, name, category)
   * Domain: the atomic type of every attribute (eg. the domain of name could be a set of 20-character string)
 * Key = a minimal set of attributes whose values uniquely identify an entity in the set
-  * Candidacy Key -> could have many
-  * Primary Key -> only one
 
 ### Subclass = special case = fewer entities = more properties
 <img width="211" alt="image" src="https://user-images.githubusercontent.com/84046974/192126121-e37ae113-ca89-428b-8bda-af4f14bcf36f.png">
@@ -30,6 +29,7 @@
 
 ### Weak Entity Set
 * definition: their key attributes come from other classes to which they are related
+  * implies a one-to-many relationship (one owner could be associated with many weak entities)
 * description: "A loan entity can not be created for a customer if the customer doesn’t exist."
 <img width="430" alt="image" src="https://user-images.githubusercontent.com/84046974/192127335-42baf7bf-7b63-4718-b632-68139cc25010.png">
 
@@ -37,7 +37,8 @@
 1. Be faithful
 2. Avoid redundancy -- waste space and (more importantly) encourage inconsistency
 3. KISS
-## Relations
+
+## Relational Model
 ### Attributes of Relationships
 * Descriptive Attributes -- **not necessary, but useful (especially in many-many relationships, as the attribute cannot be associated to only one entity)**
   * used to record information about the **relationship**, rather than about any one of the participating entities
@@ -51,7 +52,6 @@
 ### Binary (arrow = uniquely determine)
 <img width="400" alt="image" src="https://user-images.githubusercontent.com/84046974/192125903-34a3fd89-037d-4a95-85e6-162defa9baca.png">
 
-### Ternary
 ### Multiway
 <img width="428" alt="image" src="https://user-images.githubusercontent.com/84046974/197372948-3a0a094c-111f-434a-8625-b9b8a24dd60b.png">
 
@@ -59,8 +59,10 @@
 * Keys (**underline in ER**): social security number uniquely identifies a person
   * every entity must have a key
   * a key may contain multiple attributes
-  * can be more keys for an entity set
+  * can have more candidacy keys for an entity set
   * only one primary key
+* Foreign Key constraint: if one of the relations is modified, the other must be checked, and perhaps modified, to keep the data consistent
+  * must match the primary key of the referenced relation
 * Single Value constraints (**at most one value** in a given role, **implied in many-one relationships**): a person can have only one father
 * Referential Integrity constraints (**exactly one value** in a given role, non-null): if you work for a company, it must exist in the database
 * Domain constraints: peoples’ ages are between 0 and 150
@@ -114,6 +116,18 @@
     * **Beverage**(<ins>beverage_id</ins>, alcohol_percentage, flavor, color)
 
 # SQL (case-insensitive)
+## Create Table
+```sql
+CREATE TABLE Students (sid CHAR(20), name CHAR(30), login CHAR(20), age INTEGER, gpa REAL,
+                       UNIQUE (name, age), CONSTRAINT StudentsKey PRIMARY KEY (sid))
+-- sid is the primary key, and the combination of (name, age) is also a key
+
+CREATE TABLE Enrolled (studid CHAR(20), cid CHAR(20), grade CHAR(10),
+                       PRIMARY KEY (studid, cid),
+                       FOREIGN KEY (studid) REFERENCES Students)
+```
+
+## Query Template
 ```sql
 SELECT    S            --pull out from each group the values requested in S; if any aggregation, then apply within the group
                        --may contain attributes a1, …, ak and/or any aggregates but NO OTHER ATTRIBUTES
