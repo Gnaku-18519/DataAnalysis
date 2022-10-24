@@ -239,6 +239,9 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 ## Disk
 * Secondary storage device of choice, *random access* vs. *sequential*
 * Data is stored and retrieved in units called *disk blocks* or *pages*
+  * must be a multiple of sector size
+  * the number of "multiple" is determined by software
+  * the sector size is determined by hardware
 * Time to access (read/write) a disk block:
   * seek time (moving arms to position disk head on track) - 1 to 20 ms
   * rotational delay (waiting for block to rotate under head) - 0 to 10 ms
@@ -261,7 +264,8 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 
 ## Heap Files (**Unordered**)
 * Higher levels of DBMS operate on **records** and **file of records**
-  * file = collection of pages, each containing a collection of records
+  * record == tuple
+  * file of records == an implementation of storing tables == collection of pages, each containing a collection of records
 * To support record level operations, we must:
   * keep track of the pages in a file
   * keep track of free space on pages
