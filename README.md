@@ -242,7 +242,7 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * must be a multiple of sector size
   * the number of "multiple" is determined by software
   * the sector size is determined by hardware
-* Time to access (read/write) a disk block:
+* Time to access (read/write) a disk block = seek time + rotational delay + transfer time
   * seek time (moving arms to position disk head on track) - 1 to 20 ms
   * rotational delay (waiting for block to rotate under head) - 0 to 10 ms
   * transfer time (actually moving data to/from disk surface) - 1 ms per 4KB page
@@ -279,7 +279,7 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968765-fe9908d3-32bf-4c75-84c1-cb392d1ecf19.png" align="left">
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968945-01b7321a-2cf1-485c-ba90-77eca9142420.png">
 
-## File Organization and Indexing
+## File Organization
 * Sorted files on an attribute or a combination of attributes (called *search keys* or *keys*)
 * B+ Tree
   * insert / delete at log<sub>F</sub>N cost
@@ -295,5 +295,13 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * insertion = split + copy up (with a suitable separator key -- continue to appear in the leaf) / push up (the separator -- only appear once) + (maybe) grow height
   * deletion = redistribute + borrow from sibling (toss) = merge + delete parent entry (pull down) + (maybe) decrease height
   * graphical illustration: https://www.cs.princeton.edu/courses/archive/fall08/cos597A/Notes/BplusInsertDelete.pdf
-  
-<img width="440" alt="image" src="https://user-images.githubusercontent.com/84046974/196970901-1a701821-bbf0-4cb0-bbef-93edfecc96d8.png">
+* Indexing
+  * primary & secondary
+    * primary index is of primary key -- guaranteed not to contain duplicates
+    * in general, a secondary index contains duplicates
+  * clustered & non-clustered
+    * clustered index == the table of tuples sorted by the primary key == at most one for each table
+    * non-clustered index == indices of a book == directly go to that page by using index of that book
+    * clustered is faster and requires less memory for operations (in the case below, clustered needs to read in twice -- **1234** and **5678**, while non-clustered needs to read in six times -- 57**1**4, 8**3**6**2**, **5**71**4**, 83**6**2, 5**7**14, **8**362)
+<img width="502" alt="image" src="https://user-images.githubusercontent.com/84046974/197590065-2c089ec6-9933-4a4c-bbb2-8e82b44de560.png" align="left">
+<img width="502" alt="image" src="https://user-images.githubusercontent.com/84046974/197584189-a8d854bf-7164-4ff5-868f-7f147865bf4b.png">
