@@ -303,5 +303,5 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
     * clustered index == the table of tuples sorted by the primary key == at most one for each table
     * non-clustered index == indices of a book == directly go to that page by using index of that book
     * clustered is faster and requires less memory for operations (in the case below, clustered needs to read in twice -- **1234** and **5678**, while non-clustered needs to read in six times -- 57**1**4, 8**3**6**2**, **5**71**4**, 83**6**2, 5**7**14, **8**362)
-<img width="502" alt="image" src="https://user-images.githubusercontent.com/84046974/197590065-2c089ec6-9933-4a4c-bbb2-8e82b44de560.png" align="left">
-<img width="502" alt="image" src="https://user-images.githubusercontent.com/84046974/197584189-a8d854bf-7164-4ff5-868f-7f147865bf4b.png">
+<img height="280" alt="image" src="https://user-images.githubusercontent.com/84046974/197590065-2c089ec6-9933-4a4c-bbb2-8e82b44de560.png" align="left">
+<img height="280" alt="image" src="https://user-images.githubusercontent.com/84046974/197584189-a8d854bf-7164-4ff5-868f-7f147865bf4b.png">
