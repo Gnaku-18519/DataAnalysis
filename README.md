@@ -59,7 +59,7 @@
 * Keys (**underline in ER**): social security number uniquely identifies a person
   * every entity must have a key
   * a key may contain multiple attributes
-  * can have more candidacy keys for an entity set
+  * can have more candidate keys for an entity set
   * only one primary key
 * Foreign Key constraint: if one of the relations is modified, the other must be checked, and perhaps modified, to keep the data consistent
   * must match the primary key of the referenced relation
@@ -237,7 +237,9 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 <img width="425" alt="image" src="https://user-images.githubusercontent.com/84046974/194734284-e5e23157-09f7-4ab5-b636-0bf4917989a3.png">
 
 ## Disk
-* Secondary storage device of choice, *random access* vs. *sequential*
+* Secondary storage device of choice, *random access* vs. *sequential access*
+  * sequential access is always faster than random
+  * Tapes force a sequential access -- archive data not needed on a regular basis
 * Data is stored and retrieved in units called *disk blocks* or *pages*
   * must be a multiple of sector size
   * the number of "multiple" is determined by software
@@ -297,7 +299,8 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * graphical illustration: https://www.cs.princeton.edu/courses/archive/fall08/cos597A/Notes/BplusInsertDelete.pdf
 * Indexing
   * primary & secondary
-    * primary index is of primary key -- guaranteed not to contain duplicates
+    * primary index = primary key -- guaranteed not to contain duplicates
+    * unique index = candidate key
     * in general, a secondary index contains duplicates
   * clustered & non-clustered
     * clustered index == the table of tuples sorted by the primary key == at most one for each table
