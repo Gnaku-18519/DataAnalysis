@@ -102,7 +102,7 @@
 * many-many relationship: Beverage ---- Shelf
   * Beverage(<ins>beverage_id</ins>, alcohol_percentage)
   * Shelf(<ins>shelf_id</ins>, floor_number)
-  * **Associate(<ins>associate_id</ins>, beverage_id, shelf_id)**
+  * **Associate(<ins>beverage_id</ins>, <ins>shelf_id</ins>)**
 * weak entity: Store (--- Drop-Off Box
   * Drop-Off Box(**<ins>store_id</ins> (foreign key)**, **<ins>box_id</ins>**, customer_name, timestamp)
 * is-a hierarchy: Gatorade is a Beverage
