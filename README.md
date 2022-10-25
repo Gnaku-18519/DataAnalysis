@@ -287,12 +287,55 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * keep track of the pages in a file
   * keep track of free space on pages
   * keep track of the records on a page
-* System Catalogs: **catalogs are themselves stored as relations**
 
+### Heap File Implementation
+* Doubly Linked List of Pages
+  * keep track of pages that have some free space
+    * doubly linked list of pages with free space
+    * virtually all pages in a file will be in this free list
+  * keep track of free space within a page
+    * see Page Formats
+* Directory of Pages
+  * each directory entry identifies a page (or a sequence of pages)
+  * the size of the directory is likely to be very small in comparison to the size of the heap file
+  * manage free space by
+    * a bit per entry, indicating whether the corresponding page has any free space
+    * a count per entry, indicating the amount of free space on the page
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734507-da1baeb6-1042-49f5-8fb9-94704e055c38.png" align="left">
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734511-eced98b6-83f0-486e-a2e5-3c2a1ff68380.png">
+
+### Page Formats
+* Fixed-Length
+  * alternative 1: store records in the first N slots
+    * when a record is deleted, move the last record on the page into the vacated slot
+    * empty slots appear together at the end of the page
+    * locate the ith record on a page by a simple offset calculation
+    * DO NOT WORK with external references to the record that is moved (because the rid contains the slot number, which is now changed)
+  * alternative 2: using an array of bits, one per slot
+    * when a record is deleted, its bit is turned off
+    * empty slots are tracked by the bit
+    * locate records on the page by scanning the bit array to find slots whose bit is on
+* Variable-Length
+  * ability to move records is important
+    * when a record is inserted, must allocate just the right amount of space for it
+    * when a record is deleted, must move records to fill the hole created by the deletion
+    * ensure that all the free space on the page is contiguous
+  * most flexible organization: maintain a directory of slots for each page, with a `(record offset, record length)` pair per slot
+    * `(record offset)` is a 'pointer' to the record = offset in bytes from the start of the data area on the page to the start of the record
+    * deletion is setting the record offset to -1 -- may not always be removed from the slot directory if the last slot persists
+    * move records around by changing the offeset ONLY
+    * manage free space is to maintain a pointer indicating the start of the free space area (reclaim the space freed by records deleted earlier during insertion if needed)
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734519-1a7d6077-7e73-4102-94db-5e520eee29c0.png" align="left">
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734532-7798cdf9-6514-441d-b59d-fb829e2bc593.png">
+
+### Record Formats
+* System Catalogs: **catalogs are themselves stored as relations**
+* Variable-Length
+  * NULL value -- the value for a field is unavailable or inapplicable
+    * the pointer to the end of the field is set to be the same as the pointer to the beginning of the field -- no space is used for representing NULL
+    * modifying a field may cause it to grow, which requires shifting all subsequent fields
+    * modified record may no longer fit into the space remaining on its page -- need to be moved to another page
+    * record may grow so large that it no longer fits on any one page -- need to break a record into smaller records and link them together
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968765-fe9908d3-32bf-4c75-84c1-cb392d1ecf19.png" align="left">
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968945-01b7321a-2cf1-485c-ba90-77eca9142420.png">
 
