@@ -64,7 +64,7 @@
 * Foreign Key constraint: if one of the relations is modified, the other must be checked, and perhaps modified, to keep the data consistent
   * must match the primary key of the referenced relation
 * Single Value constraints (**at most one value** in a given role, **implied in many-one relationships**): a person can have only one father
-* Referential Integrity constraints (**exactly one value** in a given role, non-null): if you work for a company, it must exist in the database
+* Referential Integrity constraints (**exactly one value** in a given role, **non-null**): if you work for a company, it must exist in the database
 * Domain constraints: peoples’ ages are between 0 and 150
 * General constraints: all others (at most 50 students enroll in a class)
 
