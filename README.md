@@ -309,7 +309,7 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * alternative 1: store records in the first N slots
     * when a record is deleted, move the last record on the page into the vacated slot
     * empty slots appear together at the end of the page
-    * locate the ith record on a page by a simple offset calculation
+    * locate the *i*th record on a page by a simple offset calculation
     * DO NOT WORK with external references to the record that is moved (because the rid contains the slot number, which is now changed)
   * alternative 2: using an array of bits, one per slot
     * when a record is deleted, its bit is turned off
@@ -329,13 +329,22 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734532-7798cdf9-6514-441d-b59d-fb829e2bc593.png">
 
 ### Record Formats
-* System Catalogs: **catalogs are themselves stored as relations**
+* System Catalogs: **catalogs are themselves stored as relations**, including the address head (fixed) / each (variable) record + the length of each record
+* Fixed-Length
+  * stored consecutively
+  * the address of a particular field can be calculated using information available in the system catalog
 * Variable-Length
-  * NULL value -- the value for a field is unavailable or inapplicable
-    * the pointer to the end of the field is set to be the same as the pointer to the beginning of the field -- no space is used for representing NULL
-    * modifying a field may cause it to grow, which requires shifting all subsequent fields
-    * modified record may no longer fit into the space remaining on its page -- need to be moved to another page
-    * record may grow so large that it no longer fits on any one page -- need to break a record into smaller records and link them together
+  * alternative 1: store fields consecutively, separated by delimiters
+    * require a scan of the record to locate a desired field
+  * alternative 2: reserve some space at the beginning of a record for use as an array of integer offsets
+    * the *i*th integer in this array is the starting address of the *i*th field value **relative to the start of the record**
+    * also store an offset to the end of the record to recognize where the last held ends
+    * get direct access to any field
+    * NULL value -- the value for a field is unavailable or inapplicable
+      * the pointer to the end of the field is set to be the same as the pointer to the beginning of the field -- no space is used for representing NULL
+      * modifying a field may cause it to grow, which requires shifting all subsequent fields
+      * modified record may no longer fit into the space remaining on its page -- need to be moved to another page
+      * record may grow so large that it no longer fits on any one page -- need to break a record into smaller records and link them together
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968765-fe9908d3-32bf-4c75-84c1-cb392d1ecf19.png" align="left">
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968945-01b7321a-2cf1-485c-ba90-77eca9142420.png">
 
