@@ -262,9 +262,17 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 * Disk arrays that implement a combination of data striping and redundancy
 * Data Striping: the data is segmented into equal-size partitions (striping units) distributed over multiple disks
 
+## Disk Space Manager, Buffer Manager & Files and Access Methods Layer
+* Disk Space Manager
+  * the lowest layer of DBMS software manages space on disk
+  * manage the available physical storage space of data for the DBMS
+* Buffer Manager
+  * read data from persistent storage into memory & write data from memory into persistent storage
+* Files and Access Methods Layer
+  * to process a page -- ask Buffer Manager to fetch and put it into memory if it is not in there already
+  * to add space for new records -- ask disk space manager to allocate an additional disk page
+
 ## Buffer Management in a DBMS
-* Disk Space Management is the lowest layer of DBMS software manages space on disk
-  * higher layer can call upon this layer to read / write / allocate / delete a page
 * Track free blocks
   * maintain a list of free blocks
   * maintain a bitmap with one bit for each disk block, which indicates whether a block is in use or not
