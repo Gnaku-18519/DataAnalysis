@@ -63,10 +63,13 @@
   * only one primary key
 * Foreign Key constraint: if one of the relations is modified, the other must be checked, and perhaps modified, to keep the data consistent
   * must match the primary key of the referenced relation
-* Single Value constraints (**at most one value** in a given role, **implied in many-one relationships**): a person can have only one father
-* Referential Integrity constraints (**exactly one value** in a given role, **non-null**): if you work for a company, it must exist in the database
-* Domain constraints: peoples’ ages are between 0 and 150
-* General constraints: all others (at most 50 students enroll in a class)
+* Single Value constraint (**at most one value** in a given role, **implied in many-one relationships**): a person can have only one father
+* Domain constraint: peoples’ ages are between 0 and 150
+* General constraint: all others (at most 50 students enroll in a class)
+* Referential Integrity constraint (**exactly one value** in a given role, **non-null**): if you work for a company, it must exist in the database
+* Participation constraint: determine whether relationships must involve certain entities (if every department entity has a manager entity)
+* Overlap constraint: within is-a hierarchy, determine whether or not two subclasses can contain the same entity
+* Covering constraint: within is-a hierarchy, determine where the entities in the subclasses collectively include all entities in the superclass (if every Employee entity has to be within either HourlyEmployee or SalaryEmployee)
 
 ## Translation from ER Diagram to Relation Design
 ### Combine Relations
