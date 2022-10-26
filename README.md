@@ -164,7 +164,7 @@ WHERE    b1.manf = b2.manf AND b1.name < b2.name;
 ```
 ## Aggregation
 * SUM([DISTINCT]), AVG([DISTINCT]), COUNT([DISTINCT]), MIN, and MAX can be applied to a column in a SELECT clause to produce that aggregation on the column
-* COUNT(\*) counts the number of tuples
+* COUNT(\*) counts the number of tuples, **the only one doesn't ignore NULL**
 ```sql
 SELECT   AVG(price)
 FROM     Sells
