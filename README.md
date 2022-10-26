@@ -253,6 +253,9 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * rotational delay (waiting for block to rotate under head) - 0 to 10 ms
   * transfer time (actually moving data to/from disk surface) - 1 ms per 4KB page
 * Key to lower I/O cost: **reduce seek/rotation delays**
+* Record ID (rid): a unique identifier for a particular record in a set of records
+  * can identify the disk address of the page containing the record by rid
+  * given a rid, number of I/O’s required to read a record = 1
 <img width="464" alt="image" src="https://user-images.githubusercontent.com/84046974/194734335-2b447eed-18a9-4917-baab-9eedba098ff7.png">
 
 ## RAID - Redundant Arrays of Independent Disks
