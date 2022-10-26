@@ -60,7 +60,8 @@
   * every entity must have a key
   * a key may contain multiple attributes
   * can have more candidate keys for an entity set
-  * only one primary key
+  * at most one primary key
+  * there could have **no primary key, but must have at least one candidate key** in a table
 * Foreign Key constraint: if one of the relations is modified, the other must be checked, and perhaps modified, to keep the data consistent
   * must match the primary key of the referenced relation
 * Single Value constraint (**at most one value** in a given role, **implied in many-one relationships**): a person can have only one father
