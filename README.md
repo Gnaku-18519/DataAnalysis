@@ -292,6 +292,23 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 ### Disk VS Memory
 * **Time to access a disk page is not constant**, it depends on the location of the data (accessing to some data might be much faster than to others)
 * **Time to access memory is uniform** for most computer systems
+### Access & Track
+* Modern disk drives store more sectors on the outer tracks than the inner tracks
+* the rotation speed is constant, the seek time and rotational delay are unchanged
+* the sequential data transfer rate is higher on the outer tracks
+1. Frequent, random accesses to a small file (e.g., catalog relations)
+   * Place the file in the middle tracks
+   * Sequential speed is not an issue due to the small size of the file, and the seek time is minimized by placing files in the center  
+2. Sequential scans of a large file (e.g., selection from a relation with no index)
+   * Place the file in the outer tracks
+   * Sequential speed is most important and outer tracks maximize it
+3. Random accesses to a large file via an index (e.g., selection from a relation via the index)
+   * Place the file and index on the inner tracks
+   * The DBMS will alternately access pages of the index and of the file, and so the two should reside in close proximity to reduce seek times
+   * By placing the file and the index on the inner tracks we also save valuable space on the faster (outer) tracks for other files that are accessed sequentially
+4. Sequential scans of a small file
+   * Place small files in the inner half of the disk
+   * A scan of a small file is effectively random I/O because the cost is dominated by the cost of the initial seek to the beginning of the file
 
 ## RAID - Redundant Arrays of Independent Disks
 * Disk arrays that implement a combination of data striping and redundancy
@@ -349,12 +366,14 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
     * to insert a new record, may need to scan several pages on the free list to find one with sufficient space
   * keep track of free space within a page
     * see Page Formats
+  * simpler to implement, but harder to find a page with sufficient free space for a new record
 * Directory of Pages
   * **much smaller than the linked list method**
   * each directory entry identifies a page (or a sequence of pages)
   * manage free space by
     * a bit per entry, indicating whether the corresponding page has any free space
     * a count per entry, indicating the amount of free space on the page
+  * harder to implement, but easier to find a page with sufficient free space for a new record
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734507-da1baeb6-1042-49f5-8fb9-94704e055c38.png" align="left">
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734511-eced98b6-83f0-486e-a2e5-3c2a1ff68380.png">
 
@@ -382,6 +401,8 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
     * deletion is setting the record offset to -1 -- may not always be removed from the slot directory if the last slot persists
     * move records around by changing the offset ONLY
     * manage free space is to maintain a pointer indicating the start of the free space area (reclaim the space freed by records deleted earlier during insertion if needed)
+  * easier to perform deletion due to slot directory (an indirect way to get the offset of an entry)
+  * easier be move around without changing any external identifier
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734519-1a7d6077-7e73-4102-94db-5e520eee29c0.png" align="left">
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734532-7798cdf9-6514-441d-b59d-fb829e2bc593.png">
 
