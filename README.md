@@ -252,14 +252,40 @@ WHERE DepartmentID = 16;
     * A query only produces a tuple in the answer if its truth value for the WHERE clause is TRUE (not FALSE or UNKNOWN)
 * Boolean operators
   * IN: ```<tuple> IN <relation>```, where ```<relation>``` is always a subquery
-  * EXISTS: ```EXISTS( <relation> )``` is true if and only if ```<relation>``` is **not empty**
+    * to check if an element is in a given set
+  * EXISTS: ```EXISTS <relation>``` is true if and only if ```<relation>``` is **not empty**
+    * to check if a set is empty
   * ANY:
-    * ```x = ANY( <relation> )``` is true if x equals at least one tuple in the relation
-    * ```x >= ANY( <relation> )``` is true if x is not smaller than all tuples in the relation
+    * ```x = ANY <relation>``` is true if x equals at least one tuple in the relation
+    * ```x >= ANY <relation>``` is true if x is not smaller than all tuples in the relation
     * Note that each tuple can have one component only
   * ALL:
-    * ```x <> ALL( <relation> )``` is true if and only if for every tuple t in the relation, x is not equal to t -> x is not a member of the relation
-    * ```x >= ALL( <relation> )``` is true if there is no tuple larger than x in the relation
+    * ```x <> ALL <relation>``` is true if and only if for every tuple t in the relation, x is not equal to t -> x is not a member of the relation
+    * ```x >= ALL <relation>``` is true if there is no tuple larger than x in the relation
+```sql
+SELECT *
+FROM Beers
+WHERE name IN (SELECT beer
+         					 FROM Likes
+					          WHERE drinker = "Fred");
+
+SELECT name
+FROM Beers b1
+WHERE NOT EXISTS (SELECT *
+		                FROM Beers
+		                WHERE manf = b1.manf AND name <> b1.name);
+
+SELECT beer
+FROM Sells
+WHERE price = ANY (SELECT price
+			                FROM Sells);
+
+SELECT beer
+FROM Sells
+WHERE price >= ALL (SELECT price
+			                 FROM Sells);
+```
+
 * Use a table multiple times
 ```sql
 SELECT e1.first_name, e2.first_name
