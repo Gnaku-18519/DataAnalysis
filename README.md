@@ -222,7 +222,7 @@ INSERT INTO tableName (column1, column2, ...)
 VALUES (value1, value2, ...);
 
 INSERT INTO courses (id, title, category) 
-VALUES (2, 'How to modify data in SQL', 'basic');
+VALUES (2, "Database", "CS");
 ```
 ```sql
 UPDATE tableName
@@ -230,7 +230,7 @@ SET column1 = value1, column2 = value2, ...
 WHERE filterColumn = filterValue;
 
 UPDATE Department
-SET DepartmentName = 'Computer Science'
+SET DepartmentName = "Computer Science"
 WHERE DepartmentID = 8;
 ```
 ```sql
