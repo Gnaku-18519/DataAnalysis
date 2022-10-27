@@ -283,6 +283,8 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 * Request a page -- *valid, refbit, pinCnt, dirty*
   * not in pool -> choose a frame for replacement -> if that frame is **dirty**, write it to disk -> read requested page into chosen frame
   * **pin** the page (**pin count**: a page is a candidate for replacement iff pin count = 0) and return its address
+    * buffer manager is responsible to pin a page
+    * requestor of that page is responsible to tell the buffer manager to unpin a page
 * Buffer Replacement Policy
   * big impact on the number of I/Os -- depending on the access pattern
   * sequential flooding = nasty situation caused by LRU + repeated sequential scans
@@ -296,6 +298,7 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * it also enables the use of a simple and very effective strategy called **prefetching of pages**
 * DBMS has **more control over when a page is written to disk** than an OS typically provides
 * DBMS can **explicitly force a page to disk** to ensure that the copy of the page on disk is updated with the copy in memory
+* DBMS can **pin a page** to prevent it from replacement
 
 ## Heap Files (**Unordered**)
 * Higher levels of DBMS operate on **records** and **file of records**
@@ -338,8 +341,8 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
     * when a record is inserted, must allocate just the right amount of space for it
     * when a record is deleted, must move records to fill the hole created by the deletion
     * ensure that all the free space on the page is contiguous
-  * most flexible organization: maintain a directory of slots for each page, with a `(record offset, record length)` pair per slot
-    * `(record offset)` is a 'pointer' to the record = offset in bytes from the start of the data area on the page to the start of the record
+  * most flexible organization: maintain a directory of slots for each page, with a `<record offset, record length>` pair per slot
+    * `record offset` is a 'pointer' to the record = offset in bytes from the start of the data area on the page to the start of the record
     * deletion is setting the record offset to -1 -- may not always be removed from the slot directory if the last slot persists
     * move records around by changing the offeset ONLY
     * manage free space is to maintain a pointer indicating the start of the free space area (reclaim the space freed by records deleted earlier during insertion if needed)
