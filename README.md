@@ -255,7 +255,7 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 * Data is stored and retrieved in units called *disk blocks* or *pages*
   * must be a multiple of sector size
   * the number of "multiple" is determined by software
-  * the sector size is determined by hardware
+  * the sector size is determined by hardware, and is fixed
 * Time to access (read/write) a disk block = seek time + rotational delay + transfer time
   * seek time (moving arms to position disk head on track) - 1 to 20 ms
   * rotational delay (waiting for block to rotate under head) - 0 to 10 ms
