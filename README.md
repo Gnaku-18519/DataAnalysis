@@ -382,7 +382,7 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734532-7798cdf9-6514-441d-b59d-fb829e2bc593.png">
 
 ### Record Formats
-* System Catalogs: **catalogs are themselves stored as relations**, including the address head (fixed) / each (variable) record + the length of each record
+* System Catalogs: **catalogs are themselves stored as relations**, including the address of head (fixed) / each (variable) record + the length of each record
 * Fixed-Length
   * stored consecutively
   * the address of a particular field can be calculated using information available in the system catalog
