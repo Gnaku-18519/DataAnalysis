@@ -349,7 +349,7 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * keep track of free space within a page
     * see Page Formats
 * Directory of Pages
-  * **much smaller than the heap method**
+  * **much smaller than the linked list method**
   * each directory entry identifies a page (or a sequence of pages)
   * manage free space by
     * a bit per entry, indicating whether the corresponding page has any free space
