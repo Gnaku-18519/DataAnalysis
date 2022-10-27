@@ -377,7 +377,7 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * most flexible organization: maintain a directory of slots for each page, with a `<record offset, record length>` pair per slot
     * `record offset` is a 'pointer' to the record = offset in bytes from the start of the data area on the page to the start of the record
     * deletion is setting the record offset to -1 -- may not always be removed from the slot directory if the last slot persists
-    * move records around by changing the offeset ONLY
+    * move records around by changing the offset ONLY
     * manage free space is to maintain a pointer indicating the start of the free space area (reclaim the space freed by records deleted earlier during insertion if needed)
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734519-1a7d6077-7e73-4102-94db-5e520eee29c0.png" align="left">
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/194734532-7798cdf9-6514-441d-b59d-fb829e2bc593.png">
