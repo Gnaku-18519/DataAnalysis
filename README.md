@@ -441,6 +441,7 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
     * average fanout = 133
   * insertion = split + copy up (with a suitable separator key -- **continue to appear in the leaf**) / push up (the separator -- only appear once) + (maybe) grow height
   * deletion = redistribute + borrow from sibling (toss) = merge + delete parent entry (pull down) + (maybe) decrease height
+    * if spliting the sibling could help keeping the leaf, we should keep the leaf and keep more spaces for the future insertion
   * graphical illustration: https://www.cs.princeton.edu/courses/archive/fall08/cos597A/Notes/BplusInsertDelete.pdf
 * Indexing
   * primary & secondary
