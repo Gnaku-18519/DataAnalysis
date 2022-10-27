@@ -62,15 +62,22 @@
   * can have more candidate keys for an entity set
   * at most one primary key
   * there could have **no primary key, but must have at least one candidate key** in a table
-* Foreign Key constraint: if one of the relations is modified, the other must be checked, and perhaps modified, to keep the data consistent
+* Foreign Key constraint: each value inserted or updated in orders.customer_id must exactly match a value in customers.id, or be NULL.
+  * if one of the relations is modified, the other must be checked, and perhaps modified, to keep the data consistent
+  * enforce referential integrity
   * must match the primary key of the referenced relation
-* Single Value constraint (**at most one value** in a given role, **implied in many-one relationships**): a person can have only one father
+* Referential Integrity constraint: if you work for a company, it must exist in the database
+  * **exactly one value** in a given role, **non-null**
+* Single Value constraint: a person can have only one father
+  * **at most one value** in a given role, **implied in many-one relationships**
 * Domain constraint: peoples’ ages are between 0 and 150
-* General constraint: all others (at most 50 students enroll in a class)
-* Referential Integrity constraint (**exactly one value** in a given role, **non-null**): if you work for a company, it must exist in the database
-* Participation constraint: determine whether relationships must involve certain entities (if every department entity has a manager entity)
-* Overlap constraint: within is-a hierarchy, determine whether or not two subclasses can contain the same entity
-* Covering constraint: within is-a hierarchy, determine where the entities in the subclasses collectively include all entities in the superclass (if every Employee entity has to be within either HourlyEmployee or SalaryEmployee)
+* General constraint: (all others) at most 50 students enroll in a class
+* Participation constraint: if every department entity has a manager entity
+  * determine whether relationships must involve certain entities
+* Overlap constraint: assume that certain employees participate in more than one work team
+  * within is-a hierarchy, determine whether or not two subclasses can contain the same entity
+* Covering constraint: if every Employee entity has to be within either HourlyEmployee or SalaryEmployee
+  * within is-a hierarchy, determine where the entities in the subclasses collectively include all entities in the superclass
 
 ## Translation from ER Diagram to Relation Design
 ### Combine Relations
