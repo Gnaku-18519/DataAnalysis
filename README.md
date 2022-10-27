@@ -216,6 +216,34 @@ WHERE S.rating >= ALL (SELECT S2.rating
 ```
 <img width="365" alt="image" src="https://user-images.githubusercontent.com/84046974/192937520-e8e53094-8471-44cc-948d-c94ec1b9eaed.png">
 
+## Data Modification
+* Insert
+```sql
+INSERT INTO tableName (column1, column2, ...)
+VALUES (value1, value2, ...);
+
+INSERT INTO courses (id, title, category) 
+VALUES (2, 'How to modify data in SQL', 'basic');
+```
+* Update
+```sql
+UPDATE tableName
+SET column1 = value1, column2 = value2, ...
+WHERE filterColumn = filterValue;
+
+UPDATE Department
+SET DepartmentName = 'Computer Science'
+WHERE DepartmentID = 8;
+```
+* Delete
+```sql
+DELETE FROM tableName
+WHERE  filterColumn = filterValue;
+
+DELETE FROM Department
+WHERE DepartmentID = 16;
+```
+
 ## More Details
 * Remove duplicates: ```SELECT DISTINCT select-list```
 * Rename: ```SELECT name AS beer```
