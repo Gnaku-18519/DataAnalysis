@@ -258,6 +258,10 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * given a rid, number of I/O’s required to read a record = 1
 <img width="464" alt="image" src="https://user-images.githubusercontent.com/84046974/194734335-2b447eed-18a9-4917-baab-9eedba098ff7.png">
 
+### Disk VS Memory
+* **Time to access a disk page is not constant**, it depends on the location of the data (accessing to some data might be much faster than to others)
+* **Time to access memory is uniform** for most computer systems
+
 ## RAID - Redundant Arrays of Independent Disks
 * Disk arrays that implement a combination of data striping and redundancy
 * Data Striping: the data is segmented into equal-size partitions (striping units) distributed over multiple disks
