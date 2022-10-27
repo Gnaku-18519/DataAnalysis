@@ -360,6 +360,9 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 
 ### Page Formats
 * Fixed-Length
+  * need to find the right amount of space
+    * too small -- cannot insert
+    * too big -- waste too much
   * alternative 1: store records in the first N slots
     * when a record is deleted, move the last record on the page into the vacated slot
     * empty slots appear together at the end of the page
