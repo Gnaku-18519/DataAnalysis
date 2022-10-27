@@ -344,13 +344,13 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 ### Heap File Implementation
 * Doubly Linked List of Pages
   * keep track of pages that have some free space
-    * doubly linked list of pages with free space
-    * virtually all pages in a file will be in this free list
+    * all pages be in this free list (always have some free space within)
+    * to insert a new record, may need to scan several pages on the free list to find one with sufficient space
   * keep track of free space within a page
     * see Page Formats
 * Directory of Pages
+  * **much smaller than the heap method**
   * each directory entry identifies a page (or a sequence of pages)
-  * the size of the directory is likely to be very small in comparison to the size of the heap file
   * manage free space by
     * a bit per entry, indicating whether the corresponding page has any free space
     * a count per entry, indicating the amount of free space on the page
