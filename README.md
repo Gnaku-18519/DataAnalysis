@@ -395,9 +395,9 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
     * get direct access to any field
     * NULL value -- the value for a field is unavailable or inapplicable
       * the pointer to the end of the field is set to be the same as the pointer to the beginning of the field -- no space is used for representing NULL
-      * modifying a field may cause it to grow, which requires shifting all subsequent fields
-      * modified record may no longer fit into the space remaining on its page -- need to be moved to another page
-      * record may grow so large that it no longer fits on any one page -- need to break a record into smaller records and link them together
+  * modifying a field may cause it to grow, which requires shifting all subsequent fields
+  * modified record may no longer fit into the space remaining on its page -- need to be moved to another page
+  * record may grow so large that it no longer fits on any one page -- need to break a record into smaller records and link them together
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968765-fe9908d3-32bf-4c75-84c1-cb392d1ecf19.png" align="left">
 <img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968945-01b7321a-2cf1-485c-ba90-77eca9142420.png">
 
