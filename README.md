@@ -46,7 +46,7 @@
 <img width="471" alt="image" src="https://user-images.githubusercontent.com/84046974/197372770-e991fd1e-4289-4dd5-817a-a2b60df403fb.png">
 
 * Instance of Relationships
-  * a 'snapshot' ofthe relationship set at some instant in time
+  * a 'snapshot' of the relationship set at some instant in time
 <img width="353" alt="image" src="https://user-images.githubusercontent.com/84046974/197372822-5f4131da-45bd-4d33-9c12-2e8ef16a8fec.png">
 
 ### Binary (arrow = uniquely determine)
