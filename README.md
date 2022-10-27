@@ -238,7 +238,8 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 
 # Storage
 ## Typical Architecture
-<img width="425" alt="image" src="https://user-images.githubusercontent.com/84046974/194734284-e5e23157-09f7-4ab5-b636-0bf4917989a3.png">
+<img width="425" alt="image" src="https://user-images.githubusercontent.com/84046974/194734284-e5e23157-09f7-4ab5-b636-0bf4917989a3.png" align="left">
+<img width="464" alt="image" src="https://user-images.githubusercontent.com/84046974/194734335-2b447eed-18a9-4917-baab-9eedba098ff7.png">
 
 ## Disk
 * Secondary storage device of choice, *random access* vs. *sequential access*
@@ -256,8 +257,6 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
 * Record ID (rid): a unique identifier for a particular record in a set of records
   * can identify the disk address of the page containing the record by rid
   * given a rid, number of I/O’s required to read a record = 1
-<img width="464" alt="image" src="https://user-images.githubusercontent.com/84046974/194734335-2b447eed-18a9-4917-baab-9eedba098ff7.png">
-
 ### Disk VS Memory
 * **Time to access a disk page is not constant**, it depends on the location of the data (accessing to some data might be much faster than to others)
 * **Time to access memory is uniform** for most computer systems
