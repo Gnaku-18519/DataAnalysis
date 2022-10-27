@@ -255,6 +255,7 @@ WHERE DepartmentID = 16;
     * to check if an element is in a given set
   * EXISTS: ```EXISTS <relation>``` is true if and only if ```<relation>``` is **not empty**
     * to check if a set is empty
+    * `<relation>` would generally take use of attributes in its "sup"-query
   * ANY:
     * ```x = ANY <relation>``` is true if x equals at least one tuple in the relation
     * ```x >= ANY <relation>``` is true if x is not smaller than all tuples in the relation
@@ -266,24 +267,24 @@ WHERE DepartmentID = 16;
 SELECT *
 FROM Beers
 WHERE name IN (SELECT beer
-         					 FROM Likes
-					          WHERE drinker = "Fred");
+               FROM Likes
+               WHERE drinker = "Fred");
 
 SELECT name
 FROM Beers b1
 WHERE NOT EXISTS (SELECT *
-		                FROM Beers
-		                WHERE manf = b1.manf AND name <> b1.name);
+                  FROM Beers
+                  WHERE manf = b1.manf AND name <> b1.name);
 
 SELECT beer
 FROM Sells
 WHERE price = ANY (SELECT price
-			                FROM Sells);
+                   FROM Sells);
 
 SELECT beer
 FROM Sells
 WHERE price >= ALL (SELECT price
-			                 FROM Sells);
+                    FROM Sells);
 ```
 
 * Use a table multiple times
