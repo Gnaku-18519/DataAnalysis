@@ -308,6 +308,7 @@ WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
   * to add space for new records -- ask disk space manager to allocate an additional disk page
 
 ## Buffer Management in a DBMS
+* Necessity: to minimizate physical I/O for a given buffer size
 * Track free blocks
   * maintain a list of free blocks
   * maintain a bitmap with one bit for each disk block, which indicates whether a block is in use or not
