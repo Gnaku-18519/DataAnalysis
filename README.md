@@ -59,7 +59,7 @@
   * a key may contain multiple attributes
   * can have more candidate keys for an entity set
   * at most one primary key
-  * there could have **no primary key, but must have at least one candidate key** in a table
+  * could have **no primary key, but must have at least one candidate key** in a table
 * Foreign Key constraint: each value inserted or updated in orders.customer_id must exactly match a value in customers.id, or be NULL.
   * if one of the relations is modified, the other must be checked, and perhaps modified, to keep the data consistent
   * enforce referential integrity
