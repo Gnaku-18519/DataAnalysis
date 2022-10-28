@@ -49,10 +49,8 @@
   * a "snapshot" of the relationship set at some instant in time
 <img width="353" alt="image" src="https://user-images.githubusercontent.com/84046974/197372822-5f4131da-45bd-4d33-9c12-2e8ef16a8fec.png">
 
-### Binary (arrow = uniquely determine)
-<img width="400" alt="image" src="https://user-images.githubusercontent.com/84046974/192125903-34a3fd89-037d-4a95-85e6-162defa9baca.png">
-
-### Multiway
+### Binary & Multiway (arrow = uniquely determine)
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/84046974/192125903-34a3fd89-037d-4a95-85e6-162defa9baca.png" align="left">
 <img width="428" alt="image" src="https://user-images.githubusercontent.com/84046974/197372948-3a0a094c-111f-434a-8625-b9b8a24dd60b.png">
 
 ## Modeling Constraints
