@@ -70,6 +70,7 @@
   * **exactly one value** in a given role, **non-null**
 * Single Value constraint: a person can have only one father
   * **at most one value** in a given role, **implied in many-one relationships**
+  * but could be empty
 * Domain constraint: peoples’ ages are between 0 and 150
 * General constraint: (all others) at most 50 students enroll in a class
 * Participation constraint: if every department entity has a manager entity
