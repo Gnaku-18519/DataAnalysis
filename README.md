@@ -162,11 +162,16 @@ SELECT   Person.name
 FROM     Person x, Purchase y, Product z
 WHERE    x.name = y.buyer AND y.product = z.name AND z.category = "telephony";
 ```
-* Explicit Tuple Variables
+* Explicit Tuple Variables (use a table multiple times as different entity sets)
 ```sql
 SELECT   b1.name, b2.name
 FROM     Beers b1, Beers b2
 WHERE    b1.manf = b2.manf AND b1.name < b2.name;
+
+SELECT e1.first_name, e2.first_name
+FROM employees e1, employees e2
+WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
+      e1.salary > 10000 AND e2.salary > 10000 AND e1.salary >= e2.salary AND e1.last_name <> e2.last_name;
 ```
 ## Aggregation
 * SUM([DISTINCT]), AVG([DISTINCT]), COUNT([DISTINCT]), MIN, and MAX can be applied to a column in a SELECT clause to produce that aggregation on the column
@@ -207,11 +212,6 @@ FROM employees
 WHERE NOT EXISTS (SELECT * 
                   FROM dependents 
                   WHERE employees.employee_id = dependents.employee_id);
-
-SELECT S.sid
-FROM Sailors S
-WHERE S.rating >= ALL (SELECT S2.rating
-                       FROM Sailors S2);
 ```
 <img width="365" alt="image" src="https://user-images.githubusercontent.com/84046974/192937520-e8e53094-8471-44cc-948d-c94ec1b9eaed.png">
 
@@ -284,14 +284,6 @@ SELECT beer
 FROM Sells
 WHERE price >= ALL (SELECT price
                     FROM Sells);
-```
-
-* Use a table multiple times
-```sql
-SELECT e1.first_name, e2.first_name
-FROM employees e1, employees e2
-WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
-      e1.salary > 10000 AND e2.salary > 10000 AND e1.salary >= e2.salary AND e1.last_name <> e2.last_name;
 ```
 
 # Storage
