@@ -158,60 +158,60 @@ HAVING    C2           --keep only groups satisfying condition C2 (on aggregate 
 
 * Disambiguating Attribute
 ```sql
-SELECT   Person.name
-FROM     Person x, Purchase y, Product z
-WHERE    x.name = y.buyer AND y.product = z.name AND z.category = "telephony";
+SELECT  Person.name
+FROM    Person x, Purchase y, Product z
+WHERE   x.name = y.buyer AND y.product = z.name AND z.category = "telephony";
 ```
 * Explicit Tuple Variables (use a table multiple times as different entity sets)
 ```sql
-SELECT   b1.name, b2.name
-FROM     Beers b1, Beers b2
-WHERE    b1.manf = b2.manf AND b1.name < b2.name;
+SELECT  b1.name, b2.name
+FROM    Beers b1, Beers b2
+WHERE   b1.manf = b2.manf AND b1.name < b2.name;
 
-SELECT e1.first_name, e2.first_name
-FROM employees e1, employees e2
-WHERE e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
-      e1.salary > 10000 AND e2.salary > 10000 AND e1.salary >= e2.salary AND e1.last_name <> e2.last_name;
+SELECT  e1.first_name, e2.first_name
+FROM    employees e1, employees e2
+WHERE   e1.department_id = e2.department_id AND e1.manager_id = e2.manager_id AND
+        e1.salary > 10000 AND e2.salary > 10000 AND e1.salary >= e2.salary AND e1.last_name <> e2.last_name;
 ```
 ## Aggregation
 * SUM([DISTINCT]), AVG([DISTINCT]), COUNT([DISTINCT]), MIN, and MAX can be applied to a column in a SELECT clause to produce that aggregation on the column
 * COUNT(\*) counts the number of tuples, **the only one doesn't ignore NULL**
 ```sql
-SELECT   AVG(price)
-FROM     Sells
-WHERE    beer = 'Bud';
+SELECT  AVG(price)
+FROM    Sells
+WHERE   beer = 'Bud';
 ```
 ## Group-By and Having
 * "**for each** such bar" <=> ```GROUP BY bar```
 * Difference between ```WHERE``` and ```HAVING```: ```WHERE``` condition happens before ```GROUP BY```, and ```HAVING``` happens after ```GROUP BY```
 ```sql
-SELECT department_name, AVG(jobs.max_salary) AS average_max_salary
-FROM employees, jobs, departments
-WHERE employees.job_id = jobs.job_id AND employees.department_id = departments.department_id
-GROUP BY department_name
-HAVING average_max_salary > 8000;
+SELECT    department_name, AVG(jobs.max_salary) AS average_max_salary
+FROM      employees, jobs, departments
+WHERE     employees.job_id = jobs.job_id AND employees.department_id = departments.department_id
+GROUP BY  department_name
+HAVING    average_max_salary > 8000;
 ```
 <img width="419" alt="image" src="https://user-images.githubusercontent.com/84046974/192130486-e2b996c4-b9c1-4071-bf11-c7a78841c9a0.png">
 
 ## Union, Intersect and Except
 ```sql
-SELECT S.sname
-FROM Sailors S, Reserves R, Boats B
-WHERE S.sicl = R.sid AND R.bid = B.bid AND B.color = 'red'
+SELECT  S.sname
+FROM    Sailors S, Reserves R, Boats B
+WHERE   S.sicl = R.sid AND R.bid = B.bid AND B.color = 'red'
 UNION -- INTERSET or EXCEPT
-SELECT S2.sname
-FROM Sailors S2, Boats B2, Reserves H2
-WHERE S2.sid = H2.sid AND R2.bid = B2.bicl AND B2.color = 'green';
+SELECT  S2.sname
+FROM    Sailors S2, Boats B2, Reserves H2
+WHERE   S2.sid = H2.sid AND R2.bid = B2.bicl AND B2.color = 'green';
 ```
 
 ## Subquery & Nested Queries
 * If a subquery is guaranteed to produce one tuple, then the subquery can be used as a value
 ```sql
-SELECT employee_id
-FROM employees
-WHERE NOT EXISTS (SELECT * 
-                  FROM dependents 
-                  WHERE employees.employee_id = dependents.employee_id);
+SELECT  employee_id
+FROM    employees
+WHERE   NOT EXISTS (SELECT * 
+                    FROM dependents 
+                    WHERE employees.employee_id = dependents.employee_id);
 ```
 <img width="365" alt="image" src="https://user-images.githubusercontent.com/84046974/192937520-e8e53094-8471-44cc-948d-c94ec1b9eaed.png">
 
@@ -224,13 +224,13 @@ INSERT INTO courses (id, title, category)
 VALUES (2, "Database", "CS");
 ```
 ```sql
-UPDATE tableName
-SET column1 = value1, column2 = value2, ...
-WHERE filterColumn = filterValue;
+UPDATE  tableName
+SET     column1 = value1, column2 = value2, ...
+WHERE   filterColumn = filterValue;
 
-UPDATE Department
-SET DepartmentName = "Computer Science"
-WHERE DepartmentID = 8;
+UPDATE  Department
+SET     DepartmentName = "Computer Science"
+WHERE   DepartmentID = 8;
 ```
 ```sql
 DELETE FROM tableName
@@ -263,27 +263,27 @@ WHERE DepartmentID = 16;
     * ```x <> ALL <relation>``` is true if and only if for every tuple t in the relation, x is not equal to t -> x is not a member of the relation
     * ```x >= ALL <relation>``` is true if there is no tuple larger than x in the relation
 ```sql
-SELECT *
-FROM Beers
-WHERE name IN (SELECT beer
-               FROM Likes
-               WHERE drinker = "Fred");
+SELECT  *
+FROM    Beers
+WHERE   name IN (SELECT beer
+                 FROM Likes
+                 WHERE drinker = "Fred");
 
-SELECT name
-FROM Beers b1
-WHERE NOT EXISTS (SELECT *
-                  FROM Beers
-                  WHERE manf = b1.manf AND name <> b1.name);
+SELECT  name
+FROM    Beers b1
+WHERE   NOT EXISTS (SELECT *
+                    FROM Beers
+                    WHERE manf = b1.manf AND name <> b1.name);
 
-SELECT beer
-FROM Sells
-WHERE price = ANY (SELECT price
-                   FROM Sells);
+SELECT  beer
+FROM    Sells
+WHERE   price = ANY (SELECT price
+                     FROM Sells);
 
-SELECT beer
-FROM Sells
-WHERE price >= ALL (SELECT price
-                    FROM Sells);
+SELECT  beer
+FROM    Sells
+WHERE   price >= ALL (SELECT price
+                      FROM Sells);
 ```
 
 # Storage
