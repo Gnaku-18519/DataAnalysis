@@ -545,3 +545,33 @@ Key Effect: easy to compose
 ### Expression Trees
 <img width="426" alt="image" src="https://user-images.githubusercontent.com/84046974/203398743-76dc12dd-fe3c-46d3-ba17-29e15dddbc58.png">
 
+# External Sorting
+## Why?
+1. Users **request data in sorted order**
+2. First step in **bulk loading B+ tree index**
+3. Useful for **eliminating duplicate** copies in a collection of records
+4. **Join needs merge-sort** algorithm, which involves sorting
+5. Solve the problem: **sort 1GB of data with 1MB of RAM**
+## Two-Way Merge-Sort
+* require 3 buffers (2 inputs + 1 output)
+* each sorted subfile as a *run*
+* Passes -- **#Passes = ⌈log<sub>2</sub>N⌉ + 1**
+  * Pass 0: read a page, sort it, write it
+  * Pass 1,2,...: use 3-buffer method
+* **Total Cost = 2N * (⌈log<sub>2</sub>N⌉ + 1)** -- each pass we need read + write, so 2 disk I/Os
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/84046974/203407617-d033082d-3eb2-45ec-a69b-d56f15a77c3a.png" align="left">
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/84046974/203407388-28f70345-c8c9-4524-bb32-182b87baa4f5.png">
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/84046974/203408669-812e096b-e5f3-4102-b466-069cc261630b.png">
+
+## General Merge-Sort (sort a file with N pages using B buffer pages)
+* Passes -- **#Passes = ⌈log<sub>B-1</sub>(⌈N/B⌉)⌉ + 1**
+  * Pass 0: use all B pages to sort each page (takes ⌈N/B⌉ runs)
+  * Pass 1,2,...: merge B-1 inputs to 1 output
+* **Total Cost = 2N * (⌈log<sub>B-1</sub>(⌈N/B⌉)⌉ + 1)**
+## Typical Case
+* buffer = B pages, file = M pages -> M < B * B
+  * cost of sort becomes **4M**
+* Passes:
+  * Pass 0: create runs of B pages long -> Cost of Pass 0: 2M
+  * Pass 1: create runs of B*(B-1) pages long -> Cost of Pass 1: 2M
+
