@@ -473,26 +473,44 @@ WHERE   price >= ALL (SELECT price
 <img height="280" alt="image" src="https://user-images.githubusercontent.com/84046974/197590065-2c089ec6-9933-4a4c-bbb2-8e82b44de560.png" align="left">
 <img height="280" alt="image" src="https://user-images.githubusercontent.com/84046974/197584189-a8d854bf-7164-4ff5-868f-7f147865bf4b.png">
 
-## Relational Algebra
-### Query
+# Relational Algebra
+## Query
 1. Definition: input relations -- evaluated by instances -- output relations
 2. Procedure: Create possible plans -> Estimate runtimes -> Select and execute the fastest plan
-### Five Basic Operations
+3. Position: index-1 notation
+## Five Basic Operations
 Fundamental Property: every operator accepts (one or two) relation instances as arguments and returns a relation instance as the result  
 Key Effect: easy to compose
-#### Union: R1 ∪ R2
+### Union: R1 ∪ R2
 * schema of the union result is defined to be identical to the schema of R1
 * union-compatible (between R1 and R2, if they):
   * have the same number of the fields
   * corresponding fields, taken in order from left to right, have the same domains
-* E.g.: ActiveEmployees ∪ RetiredEmployees
-##### Intersection: R1 ∩ R2
-* R1 and R2 must be union-compatible
-* E.g.: ActiveEmployees ∩ NewEmployees
-#### Difference: R1 - R2
-* R1 and R2 must be union-compatible
-* E.g.: AllEmployees - RetiredEmployees
-#### Cross-Product: R1 × R2
+### Difference: R1 - R2 -> R1 and R2 must be union-compatible
+### Cross-Product: R1 × R2
 * each tuple in R1 with each tuple in R2
-#### Selection
-#### Projection
+### *(Not-Basic)* Renaming: ρ<sub>B<sub>1</sub>, ..., B<sub>n</sub></sub>(R)
+* change the relational schema only
+* input: R(A<sub>1</sub>, ..., A<sub>n</sub>) -> output: S(B<sub>1</sub>, ..., B<sub>n</sub>)
+* E.g.: for R(sid, bid, day) and S(sid, sname, rating, age), before renaming C = S × R -> C((sid), sname, rating, age, (sid), bid, day) -> ρ<sub>C(1->sid1, 5->sid2)</sub>(S × R) gives C(sid1, sname, rating, age, sid2, bid, day)
+### Selection: σ<sub>c</sub>(R)
+* return **all tuples** which satisfy a condition
+* *c* is a condition -- =, <, >, and, or, not, etc.
+* E.g.: σ<sub>Salary>40000</sub>(Employee)
+### Projection: π<sub>A<sub>1</sub>, ..., A<sub>m</sub></sub>(R)
+* return certain **columns**
+* E.g.: π<sub>SSN,Name</sub>(Employee)
+## Derived Operations
+### Intersection: R1 ∩ R2 = R1 - (R1 - R2) -> R1 and R2 must be union-compatible
+### Joins
+#### Theta Join (aka Condition Join): R1 ⋈<sub>θ</sub> R2 = σ<sub>θ</sub>(R1 × R2)
+* condition can refer to attributes of both R1 and R2
+#### EquiJoin: R1 ⋈<sub>A=B</sub> R2
+* equalities between two fields of R1 and R2
+#### Natural Join: R1 ⋈ R2
+* general case of EquiJoin: equalities are specified on **all fields having the same name** in R1 and R2
+* E.g.
+  * R(A,B,C,D) and S(A,C,E) -> R ⋈ S = (A,B,C,D,E)
+  * R(A,B,C) and S(D,E) -> R ⋈ S = Ø
+  * R(A,B) and S(A,B) -> R ⋈ S = R ∩ S
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/84046974/203393831-04030682-3550-4dbb-af11-2497af7a6816.png">
