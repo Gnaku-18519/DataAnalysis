@@ -545,7 +545,7 @@ Key Effect: easy to compose
 * Projection & Set Operations: easy if no duplicate elimination is needed
 * Group-By: sorting
 * Aggregation: using temporary counters in main memory as tuples are retrieved
-### Join (cost measured in number of I/Os; ignore the output I/Os as they are always the same regardless of the algorithm)
+### Join (cost measured in number of I/Os; ignore output I/Os as it is always the same regardless of algorithms)
 * Nested Loop Join
   * Tuple-oriented NLJ: for each tuple in the outer relation R, we scan the entire inner relation S
     * **Cost = M +  #tuple<sub>R</sub> * M * N**
