@@ -472,3 +472,27 @@ WHERE   price >= ALL (SELECT price
     * clustered is faster and requires less memory for operations (in the case below, clustered needs to read in twice -- **1234** and **5678**, while non-clustered needs to read in six times -- 57**1**4, 8**3**6**2**, **5**71**4**, 83**6**2, 5**7**14, **8**362)
 <img height="280" alt="image" src="https://user-images.githubusercontent.com/84046974/197590065-2c089ec6-9933-4a4c-bbb2-8e82b44de560.png" align="left">
 <img height="280" alt="image" src="https://user-images.githubusercontent.com/84046974/197584189-a8d854bf-7164-4ff5-868f-7f147865bf4b.png">
+
+## Relational Algebra
+### Query
+1. Definition: input relations -- evaluated by instances -- output relations
+2. Procedure: Create possible plans -> Estimate runtimes -> Select and execute the fastest plan
+### Five Basic Operations
+Fundamental Property: every operator accepts (one or two) relation instances as arguments and returns a relation instance as the result  
+Key Effect: easy to compose
+#### Union: R1 ∪ R2
+* schema of the union result is defined to be identical to the schema of R1
+* union-compatible (between R1 and R2, if they):
+  * have the same number of the fields
+  * corresponding fields, taken in order from left to right, have the same domains
+* E.g.: ActiveEmployees ∪ RetiredEmployees
+##### Intersection: R1 ∩ R2
+* R1 and R2 must be union-compatible
+* E.g.: ActiveEmployees ∩ NewEmployees
+#### Difference: R1 - R2
+* R1 and R2 must be union-compatible
+* E.g.: AllEmployees - RetiredEmployees
+#### Cross-Product: R1 × R2
+* each tuple in R1 with each tuple in R2
+#### Selection
+#### Projection
