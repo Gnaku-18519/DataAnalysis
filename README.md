@@ -477,7 +477,7 @@ WHERE   price >= ALL (SELECT price
 ## Why Necessary?
 1. Each operator admits sophisticated implementations
 2. Expressions in relational algebra can be rewritten: optimized
-## Limitations: transitive closure (e.g. "find all direct and indirect relatives of Fred")
+## Limitations: transitive closure (e.g. "find all direct relatives of Fred") -> not RA, need C
 ## Query
 1. Definition: input relations -- evaluated by instances -- output relations
 2. Procedure: Create possible plans -> Estimate runtimes -> Select and execute the fastest plan
