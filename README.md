@@ -474,6 +474,10 @@ WHERE   price >= ALL (SELECT price
 <img height="280" alt="image" src="https://user-images.githubusercontent.com/84046974/197584189-a8d854bf-7164-4ff5-868f-7f147865bf4b.png">
 
 # Relational Algebra
+## Why Necessary?
+1. Each operator admits sophisticated implementations
+2. Expressions in relational algebra can be rewritten: optimized
+## Limitations: transitive closure (e.g. "find all direct and indirect relatives of Fred")
 ## Query
 1. Definition: input relations -- evaluated by instances -- output relations
 2. Procedure: Create possible plans -> Estimate runtimes -> Select and execute the fastest plan
@@ -486,9 +490,16 @@ Key Effect: easy to compose
 * union-compatible (between R1 and R2, if they):
   * have the same number of the fields
   * corresponding fields, taken in order from left to right, have the same domains
-### Difference: R1 - R2 -> R1 and R2 must be union-compatible
+* add the number of occurrences
+* E.g.: {a,b,b,c} ∪ {a,b,b,b,e,f,f} = {a,a,b,b,b,b,b,c,e,f,f}
+### Difference: R1 - R2
+* R1 and R2 must be union-compatible
+* subtract the number of occurrences
+* E.g.: {a,b,b,b,c,c} – {b,c,c,c,d} = {a,b,b,d}
 ### Cross-Product: R1 × R2
 * each tuple in R1 with each tuple in R2
+* **no duplicate elimination**
+* E.g.: {a,b,b,c} * {d,e,f} = {{a,d},{a,e},{a,f},{b,d},{b,e},{b,f},{b,d},{b,e},{b,f},{c,d},{c,e},{c,f}}
 ### *(Not-Basic)* Renaming: ρ<sub>B<sub>1</sub>, ..., B<sub>n</sub></sub>(R)
 * change the relational schema only
 * input: R(A<sub>1</sub>, ..., A<sub>n</sub>) -> output: S(B<sub>1</sub>, ..., B<sub>n</sub>)
@@ -496,13 +507,18 @@ Key Effect: easy to compose
 ### Selection: σ<sub>c</sub>(R)
 * return **all tuples** which satisfy a condition
 * *c* is a condition -- =, <, >, and, or, not, etc.
+* preserve the number of occurrences
 * E.g.: σ<sub>Salary>40000</sub>(Employee)
 ### Projection: π<sub>A<sub>1</sub>, ..., A<sub>m</sub></sub>(R)
 * return certain **columns**
+* preserve the number of occurrences (**no duplicate elimination**)
 * E.g.: π<sub>SSN,Name</sub>(Employee)
 ## Derived Operations
-### Intersection: R1 ∩ R2 = R1 - (R1 - R2) -> R1 and R2 must be union-compatible
-### Joins
+### Intersection: R1 ∩ R2 = R1 - (R1 - R2)
+* R1 and R2 must be union-compatible
+* minimum of the two numbers of occurrences
+* E.g.: {a,b,b,b,c,c} ∩ {b,b,c,c,c,c,d} = {b,b,c,c}
+### Joins (no duplicate elimination)
 #### Theta Join (aka Condition Join): R1 ⋈<sub>θ</sub> R2 = σ<sub>θ</sub>(R1 × R2)
 * condition can refer to attributes of both R1 and R2
 #### EquiJoin: R1 ⋈<sub>A=B</sub> R2
@@ -514,3 +530,18 @@ Key Effect: easy to compose
   * R(A,B,C) and S(D,E) -> R ⋈ S = Ø
   * R(A,B) and S(A,B) -> R ⋈ S = R ∩ S
 <img width="300" alt="image" src="https://user-images.githubusercontent.com/84046974/203393831-04030682-3550-4dbb-af11-2497af7a6816.png">
+
+## Relational Algebra Expressions
+### Sequences of Assignment Statements
+* create temporary relation names (R4 below)
+* R3 := R1 JOIN<sub>C</sub> R2 <=> R4 := R1 * R2, R3 := SELECT<sub>C</sub>(R4)
+### Expressions with Several Operators
+* R3 := R1 JOIN<sub>C</sub> R2 <=> R3 := SELECT<sub>C</sub>(R1 * R2)
+* Precedence (from highest to lowest):
+  * unary operators -- select, project, rename
+  * product, join
+  * intersection
+  * union, set difference
+### Expression Trees
+<img width="426" alt="image" src="https://user-images.githubusercontent.com/84046974/203398743-76dc12dd-fe3c-46d3-ba17-29e15dddbc58.png">
+
