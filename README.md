@@ -482,6 +482,14 @@ WHERE   price >= ALL (SELECT price
 1. Definition: input relations -- evaluated by instances -- output relations
 2. Procedure: Create possible plans -> Estimate runtimes -> Select and execute the fastest plan
 3. Position: index-1 notation
+## System Catalog
+* System Catalog is stored as a collection of tables
+  * can be queried like other tables
+* Contents
+  * each table: table name, file name, file structure, attribute name, attribute type, index name, integrity constraint
+  * each index: index name, index structure, search key
+  * each view: view name, view definition
+  * cardinality = #tuples, size = #pages, index cardinality = #distinct-keys, index size = #pages-for-each-index, index height = #non-leaf-levels-for-each-tree-index, index range
 ## Five Basic Operations
 Fundamental Property: every operator accepts (one or two) relation instances as arguments and returns a relation instance as the result  
 Key Effect: easy to compose
@@ -531,6 +539,51 @@ Key Effect: easy to compose
   * R(A,B) and S(A,B) -> R ⋈ S = R ∩ S
 <img width="300" alt="image" src="https://user-images.githubusercontent.com/84046974/203393831-04030682-3550-4dbb-af11-2497af7a6816.png">
 
+## Operator Evaluation: Indexing, Iteration & Partitioning
+## Algorithms for Relational Operations
+* Selection: cheaper to simply scan the entire table (instead of using an unclustered index) if over 5% of the tuples are to be retrieved
+* Projection & Set Operations: easy if no duplicate elimination is needed
+* Group-By: sorting
+* Aggregation: using temporary counters in main memory as tuples are retrieved
+### Join (cost measured in number of I/Os; ignore the output I/Os as they are always the same regardless of the algorithm)
+* Nested Loop Join
+  * Tuple-oriented NLJ: for each tuple in the outer relation R, we scan the entire inner relation S
+    * **Cost = M +  #tuple<sub>R</sub> * M * N**
+  * Page-oriented NLJ: for each page of R, get each page of S, and write out matching pairs of tuples <r, s>, where r is in R-page and S is in S-page
+    * **Cost = M + M * N**
+    * Cost **less** if smaller file is used as outer relation
+  * Block Nested Loop Join:
+    * **Cost = M + N * ceiling(M/[B-2])** -- Cost = Scan of outer + scan of inner * #outer blocks
+<img width="320" alt="image" src="https://user-images.githubusercontent.com/84046974/203424216-2d41146a-665a-4525-98c6-1492526e7728.png" align="left">
+<img width="358" alt="image" src="https://user-images.githubusercontent.com/84046974/203424448-fa9c8aa3-9e09-4a7b-ad39-9be68cb19d49.png">
+
+* Sort-Merge Join
+  * 1 pointer on outer relation + 2 pointers on inner relation (R is scanned once, each S group is scanned once per matching R tuple)
+    * Difficulty: many tuples in R may match many in S
+  * Assumption: M < B * B and N < B * B
+  * **Cost = 5M + 5N** -- Cost = Scanning + Separate sorting = (M + N) + 4M + 4N
+<img height="350" alt="image" src="https://user-images.githubusercontent.com/84046974/203428980-b4befe7a-7f08-4c4e-aa9d-60cb79275600.png" align="left">
+<img height="350" alt="image" src="https://user-images.githubusercontent.com/84046974/203429040-1edf4c58-4ceb-4e4a-932c-7295ce373793.png">
+
+* Hash Join
+  * Partition both relations using hash function *h*: R tuples in partition *i* will only match S tuples in partition *i*
+  * Read in a partition of R, hash it using *h2* (**<> *h***), scan matching partition of S, search for matches
+  * Assumption: M / (B-1) <= B-2
+  * **Cost = 3M + 3N** -- Cost = Partitioning (with read + write) + Matching (with read) = (2M + 2N) + (M + N)
+  * If we build an in-memory hash table to speed up the matching of tuples, a little more memory is needed
+  * If the hash function does not partition uniformly, one or more R partitions may not fit in memory -- can apply hash-join technique recursively to do the join of this R-partition with corresponding S-partition
+* Index Nested Loop Join
+  * If there is an index on the join column of one relation (say S), can make it the inner and exploit the index
+  * **Cost:  M + ((M * #tuple<sub>R</sub>) * cost of finding matching S tuples)**
+  * cost can vary a lot
+* Join Conditions
+  * Equality (e.g., R.sid = S.sid AND R.rname = S.sname)
+    * For Index NL, build index on <sid, sname> (if S is inner) or use existing indexes on sid or sname
+    * For Sort-Merge and Hash Join, sort/partition on combination of the two join columns
+  * Inequality (e.g., R.rname < S.sname)
+    * For Index NL, need **clustered** B+ tree index (range probes on inner relation, number of matches likely to be much higher than for equality joins)
+    * Hash Join, Sort-Merge Join not applicable
+    * **Block NL quite likely to be the best join method here**
 ## Relational Algebra Expressions
 ### Sequences of Assignment Statements
 * create temporary relation names (R4 below)
@@ -574,4 +627,3 @@ Key Effect: easy to compose
 * Passes:
   * Pass 0: create runs of B pages long -> Cost of Pass 0: 2M
   * Pass 1: create runs of B*(B-1) pages long -> Cost of Pass 1: 2M
-
