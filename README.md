@@ -517,10 +517,19 @@ Key Effect: easy to compose
 * *c* is a condition -- =, <, >, and, or, not, etc.
 * preserve the number of occurrences
 * E.g.: σ<sub>Salary>40000</sub>(Employee)
+* evaluation:
+  * no index + unsorted: scan all pages (N)
+  * no index + sorted: binary search (log<sub>2</sub>N)
+  * B+ tree index: constant
+  * hash index (**must be equality selection**): 1 or 2 I/Os to retrieve the appropriate bucket page in the index + cost to retrieve tuples from R
 ### Projection: π<sub>A<sub>1</sub>, ..., A<sub>m</sub></sub>(R)
 * return certain **columns**
 * preserve the number of occurrences (**no duplicate elimination**)
 * E.g.: π<sub>SSN,Name</sub>(Employee)
+* evaluation: **sorting is better than hashing**
+  * if exist many duplicates or the distribution of (hash) values is very non-uniform
+  * output result gets sorted
+  * sorting method has been implemented (as itself is pretty important to DBMS)
 ## Derived Operations
 ### Intersection: R1 ∩ R2 = R1 - (R1 - R2)
 * R1 and R2 must be union-compatible
@@ -560,6 +569,7 @@ Key Effect: easy to compose
 * Sort-Merge Join
   * 1 pointer on outer relation + 2 pointers on inner relation (R is scanned once, each S group is scanned once per matching R tuple)
     * Difficulty: many tuples in R may match many in S
+  * less sensitive to data skew
   * Assumption: M < B * B and N < B * B
   * **Cost = 5M + 5N** -- Cost = Scanning + Separate sorting = (M + N) + 4M + 4N
 <img height="350" alt="image" src="https://user-images.githubusercontent.com/84046974/203428980-b4befe7a-7f08-4c4e-aa9d-60cb79275600.png" align="left">
@@ -572,18 +582,26 @@ Key Effect: easy to compose
   * **Cost = 3M + 3N** -- Cost = Partitioning (with read + write) + Matching (with read) = (2M + 2N) + (M + N)
   * If we build an in-memory hash table to speed up the matching of tuples, a little more memory is needed
   * If the hash function does not partition uniformly, one or more R partitions may not fit in memory -- can apply hash-join technique recursively to do the join of this R-partition with corresponding S-partition
+* Hybrid Hash Join
+  * Assumption: B - (k + 1) > sqrt(M / k) -- we have enough extra memory during the partitioning phase to hold an in-memory hash table for a partition of R
+  * Better performance because we avoid writing the first partitions of R and S to disk during the partitioning phase and reading them in again during the probing phase
 * Index Nested Loop Join
   * If there is an index on the join column of one relation (say S), can make it the inner and exploit the index
   * **Cost:  M + ((M * #tuple<sub>R</sub>) * cost of finding matching S tuples)**
   * cost can vary a lot
-* Join Conditions
+* Comparisons based on Join Conditions
   * Equality (e.g., R.sid = S.sid AND R.rname = S.sname)
     * For Index NL, build index on <sid, sname> (if S is inner) or use existing indexes on sid or sname
     * For Sort-Merge and Hash Join, sort/partition on combination of the two join columns
   * Inequality (e.g., R.rname < S.sname)
-    * For Index NL, need **clustered** B+ tree index (range probes on inner relation, number of matches likely to be much higher than for equality joins)
+    * For Index Nested Loop Join, need **clustered** B+ tree index (range probes on inner relation, number of matches likely to be much higher than equality joins)
     * Hash Join, Sort-Merge Join not applicable
-    * **Block NL quite likely to be the best join method here**
+    * **Block Nested Loop Join quite likely to be the best join method here**
+* Other Comparisons
+  * if a hash table for the entire smaller relation fits in memory: Hash Join = Block Nested Loop Join
+  * if both relations are large relative to the available buffer size: Hash Join is faster than Block Nested Loop Join
+  * if the partitions in hash join are not uniformly sized: Sort-Merge Join costs less than Hash Join
+  * if the available number of buffers falls between sqrt(M) and sqrt(N): Hash Join costs less than Sort-Merge Join
 ## Relational Algebra Expressions
 ### Sequences of Assignment Statements
 * create temporary relation names (R4 below)
