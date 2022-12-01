@@ -526,10 +526,14 @@ Key Effect: easy to compose
 * return certain **columns**
 * preserve the number of occurrences (**no duplicate elimination**)
 * E.g.: π<sub>SSN,Name</sub>(Employee)
-* evaluation: **sorting is better than hashing**
-  * if exist many duplicates or the distribution of (hash) values is very non-uniform
-  * output result gets sorted
-  * sorting method has been implemented (as itself is pretty important to DBMS)
+* evaluation: 
+  * hashing is generally faster than sorting
+    * with the assumption that after the first hash, every small bucket could fit in the memory
+    * hashing takes 3N, while sorting takes 4N
+  * sorting is better than hashing
+    * if exist many duplicates or the distribution of (hash) values is very non-uniform
+    * output result gets sorted
+    * sorting method has been implemented (as itself is pretty important to DBMS)
 ## Derived Operations
 ### Intersection: R1 ∩ R2 = R1 - (R1 - R2)
 * R1 and R2 must be union-compatible
