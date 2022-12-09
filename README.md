@@ -500,6 +500,13 @@ Key Effect: easy to compose
   * corresponding fields, taken in order from left to right, have the same domains
 * add the number of occurrences
 * E.g.: {a,b,b,c} ∪ {a,b,b,b,e,f,f} = {a,a,b,b,b,b,b,c,e,f,f}
+* evaluation:
+  * approach based on sorting
+    * approach1: sort both, then scan both relations and merge them
+    * approach2: merge from Pass 0 for both relations
+  * approach based on hashing
+    * partition both relations with hash function h1
+    * for each S-partition, build in-memory hash table with hash function h2, scan corresponding R-partition and add tuples to table while discarding duplicates
 ### Difference: R1 - R2
 * R1 and R2 must be union-compatible
 * subtract the number of occurrences
@@ -527,6 +534,12 @@ Key Effect: easy to compose
 * preserve the number of occurrences (**no duplicate elimination**)
 * E.g.: π<sub>SSN,Name</sub>(Employee)
 * evaluation: 
+  * approach based on sorting
+    * modify Pass 0 of external sort to eliminate unwanted fields
+    * modify merging passes to eliminate duplicates
+  * approach based on hashing
+    * partitioning phase: one input buffer, hash function h1, B-1 output buffer -> result in B-1 partitions
+    * dupilcate elimination phase: for each partition, apply in-memory hash function h2 (**NOT THE SAME AS** h1), and discard duplicates
   * hashing is generally faster than sorting
     * with the assumption that after the first hash, every small bucket could fit in the memory
     * hashing takes 3N, while sorting takes 4N
@@ -534,6 +547,17 @@ Key Effect: easy to compose
     * if exist many duplicates or the distribution of (hash) values is very non-uniform
     * output result gets sorted
     * sorting method has been implemented (as itself is pretty important to DBMS)
+### Aggregate
+* without grouping:
+  * in general, need to scan the whole relation
+  * given index, could do index-only scan
+* with grouping:
+  * approach based on sorting
+    * sort on group-by attributes, then scan and compute
+    * can be improved by **combining** sorting and aggregation compution
+  * approach based on hashing
+    * hash on group-by attributes
+  * given index, could do index-only scan; if group-by attributes form prefix of search key, can retrieve data entries/tuples in group-by order
 ## Derived Operations
 ### Intersection: R1 ∩ R2 = R1 - (R1 - R2)
 * R1 and R2 must be union-compatible
