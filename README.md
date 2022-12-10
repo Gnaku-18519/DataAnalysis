@@ -749,6 +749,8 @@ Key Effect: easy to compose
       * write a <START CKPT(T1,…,Tk)> where T1,…,Tk are all active transactions
       * continue normal operation
       * when all of T1,…,Tk have completed, write \<END CKPT>
+        * \<COMMIT T> means the data should be on the disk but unsure
+        * need \<END CKPT> to ensure that transaction is applied to disk
   * redo-logging
     * <T,X,v> (T has updated element X, and its **new** value is v)
     * **outputs are done late** -- <T, X, v> and \<COMMIT T> before write to disk
