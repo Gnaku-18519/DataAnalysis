@@ -713,6 +713,50 @@ Key Effect: easy to compose
     * use locks and crash recovery
 
 # Recovery
-
+* Target: System Failures
+  * each transaction has **internal state**
+    * when system crashes, internal state is lost -- don’t know which parts executed and which didn’t
+  * remedy: use a **log**, a file that records every single action of the transaction
+* Transaction Process
+  * start
+  * read / write some elements
+    * an element could be a block (usually), a tuple, or a table
+  * end = commit / abort
+* Primitive Operations of Transactions
+  * INPUT(X)
+    * read element X to memory buffer
+  * READ(X,t)
+    * copy element X to transaction local variable t
+  * WRITE(X,t)
+    * copy transaction local variable t to element X
+  * OUTPUT(X)
+    * write element X to disk
+* Log
+  * **append-only**
+  * multiple transactions run concurrently, log records are interleaved
+  * checkpointing -- checkpoint the database periodically -- **during recovery, stop at first \<CKPT>**
+    * stop accepting new transactions
+    * wait until all curent transactions complete
+    * flush log to disk
+    * write a \<CKPT> log record, flush
+    * resume transactions
+  * undo-logging
+    * \<START T>, <T, X, v> (T has updated element X, and its **old** value was v), \<COMMIT T>, \<ABORT T>
+    * **outputs are done early** -- modify, then <T, X, v>; write to disk, then \<COMMIT T>
+    * read log from **the back**, undo all modifications by **incompleted** transactions
+    * all undo commands are **idempotent** -- if we perform them a second time, no harm is done
+    * nonquiescent checkpointing
+      * write a <START CKPT(T1,…,Tk)> where T1,…,Tk are all active transactions
+      * continue normal operation
+      * when all of T1,…,Tk have completed, write \<END CKPT>
+  * redo-logging
+    * <T,X,v> (T has updated element X, and its **new** value is v)
+    * **outputs are done late** -- <T, X, v> and \<COMMIT T> before write to disk
+    * read log from **the beginning**, redo all updates of **committed** transactions
+    * nonquiescent checkpointing: flush to disk all blocks of committed transactions (dirty blocks), while continuing normal operation
+  * undo-redo-logging
+    * <T, X, u, v> (T has updated element X, its old value was u, and its new value is v)
+    * modify, then <T, X, u, v>; \<COMMIT T> either before or after writing to disk
+    * undo all uncommitted transactions, bottom-up & redo all committed transaction, top-down
 
 # Normalization
