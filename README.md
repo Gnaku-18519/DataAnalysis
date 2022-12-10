@@ -674,3 +674,27 @@ Key Effect: easy to compose
   * Pass 0: create runs of B pages long -> Cost of Pass 0: 2M
   * Pass 1: create runs of B*(B-1) pages long -> Cost of Pass 1: 2M
 
+# Query Optimization
+* target = estimate cost + estimate size of result, ideally choose the best, pratically avoid the worst
+* Cost estimation
+  * statistics, maintained in system catalogs, used to estimate cost of operations and result sizes
+  * considers combination of CPU and I/O costs
+* Plan Space -- too large, must be pruned
+  * only the space of **left-deep** plans is considered
+    * left-deep plans allow output of each operator to be **pipelined** into the next operator **without storing it in a temporary relation**
+  * cartesian products avoided
+* Tactics
+  * push selections: effectively reduce the sizes of the tables
+  * use index: index might lead the tuples to be clustered
+* Catalogs typically contain at least
+  * #tuples (NTuples) and #pages (NPages) for each relation
+  * #distinct key values (NKeys) and NPages for each index
+  * index height, low/high key values (Low/High) for each tree index
+<img width="406" alt="image" src="https://user-images.githubusercontent.com/84046974/206825253-b2b6c9d7-9391-47ab-8b23-87d8c9ca1f62.png">
+
+
+# Transaction Management
+
+# Recovery
+
+# Normalization
