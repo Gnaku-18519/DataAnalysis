@@ -690,11 +690,29 @@ Key Effect: easy to compose
   * #tuples (NTuples) and #pages (NPages) for each relation
   * #distinct key values (NKeys) and NPages for each index
   * index height, low/high key values (Low/High) for each tree index
+* Reduction factor (RF) associated with each term reflects the impact of the term in reducing result size
+  * Result cardinality = Max #tuples * product of all RF’s
+  * Implicit assumption that terms are independent
+  * Term col = value has RF = 1 / NKeys(I), given index I on col
+  * Term col1 = col2 has RF = 1 / MAX(NKeys(I1), NKeys(I2))
+  * Term col > value has RF = (High(I)-value) / (High(I)-Low(I))
 <img width="406" alt="image" src="https://user-images.githubusercontent.com/84046974/206825253-b2b6c9d7-9391-47ab-8b23-87d8c9ca1f62.png">
 
-
 # Transaction Management
+* Transaction
+  * definition: a sequence of SQL statements that execute as a single “atomic” unit
+  * all or none
+* ACID properties = Atomic, Consistent, Isolation, Durable
+  * DBMS takes care of: AID
+    * atomic = if crash half way, then remove its effect
+    * isolation = if two users run transactions concurrently, they should not interfere with each other
+    * durable = if a transaction has been executed, its effect is persisted in the database
+  * programmer takes care of: C
+    * "consistency" is subjective, depending on the business logic of the app
+  * how to do this?
+    * use locks and crash recovery
 
 # Recovery
+
 
 # Normalization
