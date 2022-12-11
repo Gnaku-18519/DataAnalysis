@@ -441,8 +441,8 @@ WHERE   price >= ALL (SELECT price
   * modifying a field may cause it to grow, which requires shifting all subsequent fields
   * modified record may no longer fit into the space remaining on its page -- need to be moved to another page
   * record may grow so large that it no longer fits on any one page -- need to break a record into smaller records and link them together
-<img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968765-fe9908d3-32bf-4c75-84c1-cb392d1ecf19.png" align="left">
-<img height="200" alt="image" src="https://user-images.githubusercontent.com/84046974/196968945-01b7321a-2cf1-485c-ba90-77eca9142420.png">
+<img height="280" alt="image" src="https://user-images.githubusercontent.com/84046974/196968765-fe9908d3-32bf-4c75-84c1-cb392d1ecf19.png" align="left">
+<img height="280" alt="image" src="https://user-images.githubusercontent.com/84046974/196968945-01b7321a-2cf1-485c-ba90-77eca9142420.png">
 
 ## File Organization
 * Sorted files on an attribute or a combination of attributes (called *search keys* or *keys*)
