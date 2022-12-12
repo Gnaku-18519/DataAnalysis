@@ -731,6 +731,8 @@ Key Effect: easy to compose
     * copy transaction local variable t to element X
   * OUTPUT(X)
     * write element X to disk
+<img width="414" alt="image" src="https://user-images.githubusercontent.com/84046974/207160409-3d401ae1-43c4-4398-abcc-0907d9358311.png">
+
 * Log
   * **append-only**
   * multiple transactions run concurrently, log records are interleaved
@@ -760,5 +762,7 @@ Key Effect: easy to compose
     * <T, X, u, v> (T has updated element X, its old value was u, and its new value is v)
     * modify, then <T, X, u, v>; \<COMMIT T> either before or after writing to disk
     * undo all uncommitted transactions, bottom-up & redo all committed transaction, top-down
+<img width="414" alt="image" src="https://user-images.githubusercontent.com/84046974/207161179-4322dc12-b401-41b5-ae29-eb4de4b196cc.png" align="left">
+<img width="414" alt="image" src="https://user-images.githubusercontent.com/84046974/207160994-e790e6fa-32ba-46c2-8255-e742f1c959e2.png">
 
 # Normalization
