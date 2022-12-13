@@ -764,5 +764,7 @@ Key Effect: easy to compose
     * undo all uncommitted transactions, bottom-up & redo all committed transaction, top-down
 <img width="414" alt="image" src="https://user-images.githubusercontent.com/84046974/207161179-4322dc12-b401-41b5-ae29-eb4de4b196cc.png" align="left">
 <img width="414" alt="image" src="https://user-images.githubusercontent.com/84046974/207160994-e790e6fa-32ba-46c2-8255-e742f1c959e2.png">
+<img width="414" alt="image" src="https://user-images.githubusercontent.com/84046974/207199420-c9f4201e-c913-4164-b292-5784c9efb5a8.png" align="left">
+<img width="414" alt="image" src="https://user-images.githubusercontent.com/84046974/207199726-498fda71-8b4d-4234-817d-413ff43d89c5.png">
 
 # Normalization
