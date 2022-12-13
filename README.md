@@ -768,3 +768,15 @@ Key Effect: easy to compose
 <img width="414" alt="image" src="https://user-images.githubusercontent.com/84046974/207199965-e11b2b5e-8f5b-4c17-aa7f-6a8a951e8429.png">
 
 # Normalization
+* Bad Design (R) Anomalies
+  * Redundancy = repetition of data      
+  * Update Anomaly = update one item and forget others = inconsistencies
+  * Deletion Anomaly = delete many items, delete one item, loose other information
+  * Insertion Anomaly = cannot insert one item without inserting others
+* Desirable Properties for a Good Design (R*)
+  * must preserve the information of R
+  * must have minimal amount of redundancy
+  * must be dependency-preserving
+  * must give good query performance
+* Functional Dependencies and Keys
+  * To check A -> B, erase all other columns, and check if the remaining relation is **many-one**
