@@ -779,7 +779,7 @@ Key Effect: easy to compose
   * must be dependency-preserving
   * must give good query performance
 * Functional Dependencies
-  * A -> B: A **determines** B
+  * A -> B == A **determines** B
   * to check A -> B, erase all other columns, and check if the remaining relation is **many-one**
   * the FDs should be valid on ALL DB database instances (the **domain**) conforming to our schema, not just the current table
 * Relational Keys
