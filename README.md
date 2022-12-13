@@ -778,5 +778,21 @@ Key Effect: easy to compose
   * must have minimal amount of redundancy
   * must be dependency-preserving
   * must give good query performance
-* Functional Dependencies and Keys
-  * To check A -> B, erase all other columns, and check if the remaining relation is **many-one**
+* Functional Dependencies
+  * A -> B: A **determines** B
+  * to check A -> B, erase all other columns, and check if the remaining relation is **many-one**
+  * the FDs should be valid on ALL DB database instances (the **domain**) conforming to our schema, not just the current table
+* Relational Keys
+  * Key: functionally determines all attributes of R & **none of its subsets determines all attributes of R**
+  * Superkey: a set of attributes that **contains a key** (a key is also a superkey)
+* Finding the Keys of a Relation
+  * from an entity set: key of the relation = key of the entity set
+  * from a many-many relation: key of the relation = combination of keys of both entity sets
+* Armstrong's Axioms
+  * closure of FD sets: S+ = all FDs logically implied by S
+    * for each f in S, apply reflexivity and augmentation rules
+    * for each pair of FDs in S, apply the transitivity rule
+  * reflexivity: AB -> A
+  * augmentation: A -> B, then AC -> BC
+  * transitivity: A -> B and B -> C, then A -> C
+* BCNF
