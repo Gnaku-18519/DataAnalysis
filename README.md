@@ -606,7 +606,7 @@ Key Effect: easy to compose
 * Sort-Merge Join
   * 1 pointer on outer relation + 2 pointers on inner relation (R is scanned once, each S group is scanned once per matching R tuple)
     * Difficulty: many tuples in R may match many in S
-  * less sensitive to data skew
+  * **less sensitive to data skew**
   * Assumption: M < B * B and N < B * B
   * **Cost = 5M + 5N** -- Cost = Scanning + Separate sorting = (M + N) + 4M + 4N
 <img height="350" alt="image" src="https://user-images.githubusercontent.com/84046974/203428980-b4befe7a-7f08-4c4e-aa9d-60cb79275600.png" align="left">
