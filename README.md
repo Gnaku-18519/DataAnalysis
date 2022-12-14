@@ -574,7 +574,8 @@ Key Effect: easy to compose
   * R(A,B,C,D) and S(A,C,E) -> R ⋈ S = (A,B,C,D,E)
   * R(A,B,C) and S(D,E) -> R ⋈ S = Ø
   * R(A,B) and S(A,B) -> R ⋈ S = R ∩ S
-<img width="300" alt="image" src="https://user-images.githubusercontent.com/84046974/203393831-04030682-3550-4dbb-af11-2497af7a6816.png">
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/84046974/203393831-04030682-3550-4dbb-af11-2497af7a6816.png" align="left">
+<img width="666" alt="image" src="https://user-images.githubusercontent.com/84046974/207685382-7a321b68-cfba-4bca-929f-ae5c81697795.png">
 
 ## Operator Evaluation: Indexing, Iteration & Partitioning
 ### Algorithms for Relational Operations
