@@ -595,7 +595,7 @@ Key Effect: easy to compose
 * Nested Loop Join
   * Tuple-oriented NLJ: for each tuple in the outer relation R, we scan the entire inner relation S
     * **Cost = M +  #tuple<sub>R</sub> * M * N**
-  * Page-oriented NLJ: for each page of R, get each page of S, and write out matching pairs of tuples <r, s>, where r is in R-page and S is in S-page
+  * Page-oriented NLJ: for each page of R, get each page of S, and write out matching pairs of tuples <r, s>, where r is in R and s in S
     * **Cost = M + M * N**
     * Cost **less** if smaller file is used as outer relation
   * Block Nested Loop Join:
