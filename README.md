@@ -535,7 +535,7 @@ Key Effect: easy to compose
   * no index + unsorted: scan all pages (N)
   * no index + sorted: binary search (log<sub>2</sub>N)
   * B+ tree index: constant
-  * hash index (**must be equality selection**): 1 or 2 I/Os to retrieve the appropriate bucket page in the index + cost to retrieve tuples from R
+  * hash index (**must be equality selection**): 1 or 2 I/Os to retrieve the appropriate bucket page + cost to retrieve tuples from R
 ### Projection: π<sub>A<sub>1</sub>, ..., A<sub>m</sub></sub>(R)
 * return certain **columns**
 * preserve the number of occurrences (**no duplicate elimination**)
