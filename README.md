@@ -805,3 +805,10 @@ Key Effect: easy to compose
   * augmentation: A -> B, then AC -> BC
   * transitivity: A -> B and B -> C, then A -> C
 * BCNF
+  * motivation: by reforming the schema to make it good -> minimize redundancy & keep the tables as large as possible
+  * BCNF is not always dependency preserving
+    * might lose domain constraints
+  * BCNF avoids information loss
+  * BCNF removes certain types of redundancy
+  * different spliting process may result in different final tables
+
