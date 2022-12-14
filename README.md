@@ -564,7 +564,8 @@ Key Effect: easy to compose
     * can be improved by **combining** sorting and aggregation compution
   * approach based on hashing
     * hash on group-by attributes
-  * given index, could do index-only scan; if group-by attributes form prefix of search key, can retrieve data entries/tuples in group-by order
+  * given index, could do index-only scan
+  * if group-by attributes form prefix of search key, can retrieve data entries/tuples in group-by order
 ## Derived Operations
 ### Intersection: R1 ∩ R2 = R1 - (R1 - R2)
 * R1 and R2 must be union-compatible
