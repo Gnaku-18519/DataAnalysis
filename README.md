@@ -489,7 +489,12 @@ WHERE   price >= ALL (SELECT price
   * each table: table name, file name, file structure, attribute name, attribute type, index name, integrity constraint
   * each index: index name, index structure, search key
   * each view: view name, view definition
-  * cardinality = #tuples, size = #pages, index cardinality = #distinct-keys, index size = #pages-for-each-index, index height = #non-leaf-levels-for-each-tree-index, index range
+  * cardinality = #tuples
+  * size = #pages
+  * index cardinality = #distinct-keys
+  * index size = #pages-for-each-index
+  * index height = #non-leaf-levels-for-each-tree-index
+  * index range = {min-key, ..., max-key}
 ## Five Basic Operations
 Fundamental Property: every operator accepts (one or two) relation instances as arguments and returns a relation instance as the result  
 Key Effect: easy to compose
