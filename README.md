@@ -477,7 +477,7 @@ WHERE   price >= ALL (SELECT price
 ## Why Necessary?
 1. Each operator admits sophisticated implementations
 2. Expressions in relational algebra can be rewritten: optimized
-## Limitations: transitive closure (e.g. "find all direct relatives of Fred") -> not RA, need C
+## Limitations: transitive closure (e.g. "find all direct relatives of Fred") -> not RA, need Cond
 ## Query
 1. Definition: input relations -- evaluated by instances -- output relations
 2. Procedure: Create possible plans -> Estimate runtimes -> Select and execute the fastest plan
@@ -576,8 +576,22 @@ Key Effect: easy to compose
   * R(A,B) and S(A,B) -> R ⋈ S = R ∩ S
 <img width="300" alt="image" src="https://user-images.githubusercontent.com/84046974/203393831-04030682-3550-4dbb-af11-2497af7a6816.png">
 
+```
+Project(PName, PNo, DNo, P_Loc), Emp(Fname, Lname, SSN, DNo), Works_on(ESSN, PNo, Hours)
+Q: Find the names of the employees who work on all the projects controlled by DNo = 3
+
+
+Employee(Fname, Lname, SSN, DNo), Dependent(ESSN, Dep_Name, Relationship), Dept(DName, DNo, Mgr_SSN)
+Q1: List the names of all employees with 2 or more dependents
+
+Q2: Retrieve the names of the employees with no dependents
+
+Q3: List the names of managers who have at least one dependent
+
+```
+
 ## Operator Evaluation: Indexing, Iteration & Partitioning
-## Algorithms for Relational Operations
+### Algorithms for Relational Operations
 * Selection: cheaper to simply scan the entire table (instead of using an unclustered index) if over 5% of the tuples are to be retrieved
 * Projection & Set Operations: easy if no duplicate elimination is needed
 * Group-By: sorting
