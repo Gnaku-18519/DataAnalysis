@@ -678,7 +678,7 @@ Key Effect: easy to compose
 * **Total Cost = 2N * (ceil(log<sub>B-1</sub>(ceil(N/B))) + 1)**
 ## Typical Case
 * buffer = B pages, file = M pages -> M < B * B
-  * cost of sort becomes **4M**
+  * Cost of sort becomes **4M**
 * Passes:
   * Pass 0: create runs of B pages long -> Cost of Pass 0: 2M
   * Pass 1: create runs of B*(B-1) pages long -> Cost of Pass 1: 2M
