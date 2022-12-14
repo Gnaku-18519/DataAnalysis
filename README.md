@@ -523,7 +523,9 @@ Key Effect: easy to compose
 ### *(Not-Basic)* Renaming: ρ<sub>B<sub>1</sub>, ..., B<sub>n</sub></sub>(R)
 * change the relational schema only
 * input: R(A<sub>1</sub>, ..., A<sub>n</sub>) -> output: S(B<sub>1</sub>, ..., B<sub>n</sub>)
-* E.g.: for R(sid, bid, day) and S(sid, sname, rating, age), before renaming C = S × R -> C((sid), sname, rating, age, (sid), bid, day) -> ρ<sub>C(1->sid1, 5->sid2)</sub>(S × R) gives C(sid1, sname, rating, age, sid2, bid, day)
+* E.g.: for R(sid, bid, day) and S(sid, sname, rating, age)
+  * before renaming C = S × R -> C((sid), sname, rating, age, (sid), bid, day)
+  * with renaming, ρ<sub>C(1->sid1, 5->sid2)</sub>(S × R) gives C(sid1, sname, rating, age, sid2, bid, day)
 ### Selection: σ<sub>c</sub>(R)
 * return **all tuples** which satisfy a condition
 * *c* is a condition -- =, <, >, and, or, not, etc.
