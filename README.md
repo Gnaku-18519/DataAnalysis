@@ -577,7 +577,9 @@ Key Effect: easy to compose
 * equalities between two fields of R1 and R2
 #### Natural Join: R1 ⋈ R2
 * general case of EquiJoin: equalities are specified on **all fields having the same name** in R1 and R2
+  * if you want to join two fields, you might need to **rename one of them**
 * E.g.
+  * Sells(bar, beer, price) and Bars(name, addr) -> need to rename Bars.name to Bars.bar to make natural join work
   * R(A,B,C,D) and S(A,C,E) -> R ⋈ S = (A,B,C,D,E)
   * R(A,B,C) and S(D,E) -> R ⋈ S = Ø
   * R(A,B) and S(A,B) -> R ⋈ S = R ∩ S
