@@ -649,8 +649,9 @@ Key Effect: easy to compose
   * product, join
   * intersection
   * union, set difference
-### Expression Trees
-<img width="426" alt="image" src="https://user-images.githubusercontent.com/84046974/203398743-76dc12dd-fe3c-46d3-ba17-29e15dddbc58.png">
+### Expression Trees and Logical & Physical Operators
+<img width="426" alt="image" src="https://user-images.githubusercontent.com/84046974/203398743-76dc12dd-fe3c-46d3-ba17-29e15dddbc58.png" align="left">
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/84046974/207755499-54d39304-2272-4366-b114-ef109289efdf.png">
 
 # External Sorting
 ## Why?
