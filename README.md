@@ -644,6 +644,7 @@ Key Effect: easy to compose
   * if both relations are large relative to the available buffer size: Hash Join is faster than Block Nested Loop Join
   * if the partitions in hash join are not uniformly sized: Sort-Merge Join costs less than Hash Join
   * if the available number of buffers falls between sqrt(M) and sqrt(N): Hash Join costs less than Sort-Merge Join
+
 ## Relational Algebra Expressions
 ### Sequences of Assignment Statements
 * create temporary relation names (R4 below)
