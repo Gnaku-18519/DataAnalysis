@@ -498,6 +498,13 @@ WHERE   price >= ALL (SELECT price
 ## Five Basic Operations
 Fundamental Property: every operator accepts (one or two) relation instances as arguments and returns a relation instance as the result  
 Key Effect: easy to compose
+### Tricks
+1. "or" == for the same attribute, OR(^) on the attribute; for different attributes, Union on the subsets
+2. "and" == use Intersection of relations or Join the same relation several times
+3. "all" == Division
+4. "some" == exist
+5. "only" == all - not only
+6. rename before join
 ### Union: R1 ∪ R2
 * schema of the union result is defined to be identical to the schema of R1
 * union-compatible (between R1 and R2, if they):
