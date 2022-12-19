@@ -767,20 +767,27 @@ Key Effect: easy to compose
     * resume transactions
   * undo-logging
     * \<START T>, <T, X, v> (T has updated element X, and its **old** value was v), \<COMMIT T>, \<ABORT T>
+      * see \<COMMIT> -> already on disk -> no need to undo
+      * no \<COMMIT> -> not sure if on disk or not -> have to undo
     * **outputs are done early** -- modify, then <T, X, v>; write to disk, then \<COMMIT T>
     * read log from **the back**, undo all modifications by **incompleted** transactions
     * all undo commands are **idempotent** -- if we perform them a second time, no harm is done
-    * nonquiescent checkpointing
-      * write a <START CKPT(T1,…,Tk)> where T1,…,Tk are all active transactions
-      * continue normal operation
-      * when all of T1,…,Tk have completed, write \<END CKPT>
-        * \<COMMIT T> means the data should be on the disk but unsure
-        * need \<END CKPT> to ensure that transaction is applied to disk
+    * nonquiescent checkpointing (\<START CKPT Ti> where Ti are the **only** active transactions at that point)
+      * bottom-up, find the first \<END CKPT> and its corresponding \<START CKPT Ti>
+      * here, we know **Ti is already on disk** (as \<END CKPT> happens after \<COMMIT Ti>)
+      * bottom-up, find the transactions that **start after** \<START CKPT Ti> and **haven't been committed yet**
+      * undo them (set to old values)
   * redo-logging
     * <T,X,v> (T has updated element X, and its **new** value is v)
+      * see \<COMMIT> -> not sure if on disk or not -> have to redo
+      * no \<COMMIT> -> not completed yet -> no need to redo
     * **outputs are done late** -- <T, X, v> and \<COMMIT T> before write to disk
     * read log from **the beginning**, redo all updates of **committed** transactions
-    * nonquiescent checkpointing: flush to disk all blocks of committed transactions (dirty blocks), while continuing normal operation
+    * nonquiescent checkpointing recovery: flush to disk all blocks of committed transactions (dirty blocks), while continuing normal operation
+      * bottom-up, find the first \<END CKPT> and its corresponding \<START CKPT Ti>
+      * here, we know **transactions start before \<START CKPT Ti> are already on disk** (as they are not active at \<START CKPT Ti> and \<END CKPT> flushes all committed transactions)
+      * top-down, find all transactions that **in and start after** <\START CKPT Ti> and **have been committed**
+      * redo them (set to new values)
   * undo-redo-logging
     * <T, X, u, v> (T has updated element X, its old value was u, and its new value is v)
     * modify, then <T, X, u, v>; \<COMMIT T> either before or after writing to disk
