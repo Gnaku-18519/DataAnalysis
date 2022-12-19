@@ -813,6 +813,7 @@ Key Effect: easy to compose
   * transitivity: A -> B and B -> C, then A -> C
 * BCNF
   * motivation: by reforming the schema to make it good -> minimize redundancy & keep the tables as large as possible
+    * **whenever** there is a nontrivial FD: A -> B for R, it is the case that A is a superkey of R
   * BCNF is not always dependency preserving
     * might lose domain constraints
   * BCNF avoids information loss
