@@ -621,8 +621,8 @@ Key Effect: easy to compose
 <img height="350" alt="image" src="https://user-images.githubusercontent.com/84046974/203429040-1edf4c58-4ceb-4e4a-932c-7295ce373793.png">
 
 * Hash Join
-  * Partition both relations using hash function *h*: R tuples in partition *i* will only match S tuples in partition *i*
-  * Read in a partition of R, hash it using *h2* (**<> *h***), scan matching partition of S, search for matches
+  * Partition both relations using hash function *h1*: R tuples in partition *i* will only match S tuples in partition *i*
+  * Read in a partition of R, hash it using *h2* (**<> *h1***), scan matching partition of S, search for matches
   * Assumption: M / (B-1) <= B-2
   * **Cost = 3M + 3N** -- Cost = Partitioning (with read + write) + Matching (with read) = (2M + 2N) + (M + N)
   * If we build an in-memory hash table to speed up the matching of tuples, a little more memory is needed
