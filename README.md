@@ -517,8 +517,8 @@ Key Effect: easy to compose
     * approach1: sort both, then scan both relations and merge them
     * approach2: merge from Pass 0 for both relations
   * approach based on hashing
-    * partition both relations with hash function h1
-    * for each S-partition, build in-memory hash table with hash function h2, scan corresponding R-partition and add tuples to table while discarding duplicates
+    * partition both relations with hash function *h1*
+    * for each S-partition, build in-memory hash table with hash function *h2*, scan corresponding R-partition and add tuples to table while discarding duplicates
 ### Difference: R1 - R2
 * R1 and R2 must be union-compatible
 * subtract the number of occurrences
@@ -552,8 +552,8 @@ Key Effect: easy to compose
     * modify Pass 0 of external sort to eliminate unwanted fields
     * modify merging passes to eliminate duplicates
   * approach based on hashing
-    * partitioning phase: one input buffer, hash function h1, B-1 output buffer -> result in B-1 partitions
-    * dupilcate elimination phase: for each partition, apply in-memory hash function h2 (**NOT THE SAME AS** h1), and discard duplicates
+    * partitioning phase: one input buffer, hash function *h1*, B-1 output buffer -> result in B-1 partitions
+    * dupilcate elimination phase: for each partition, apply in-memory hash function *h2* (*<> h1*), and discard duplicates
   * hashing is generally faster than sorting
     * with the assumption that after the first hash, every small bucket could fit in the memory
     * hashing takes 3N, while sorting takes 4N
