@@ -624,7 +624,7 @@ Key Effect: easy to compose
   * Partition both relations using hash function *h1*: R tuples in partition *i* will only match S tuples in partition *i*
   * Read in a partition of R, hash it using *h2* (**<> *h1***), scan matching partition of S, search for matches
   * Assumption: M / (B-1) <= B-2
-  * **Cost = 3M + 3N** -- Cost = Partitioning (with read + write) + Matching (with read) = (2M + 2N) + (M + N)
+  * **Cost = 3M + 3N** = Partitioning (with read + write) + Matching (with read) = (2M + 2N) + (M + N)
   * If we build an in-memory hash table to speed up the matching of tuples, a little more memory is needed
   * If the hash function does not partition uniformly, one or more R partitions may not fit in memory -- can apply hash-join technique recursively to do the join of this R-partition with corresponding S-partition
 * Hybrid Hash Join
