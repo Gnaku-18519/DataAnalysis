@@ -607,7 +607,7 @@ Key Effect: easy to compose
     * **Cost = M + M * N**
     * Cost **less** if smaller file is used as outer relation
   * Block Nested Loop Join:
-    * **Cost = M + N * ceiling(M/[B-2])** = scan of outer + scan of inner * #outer blocks
+    * **Cost = M + N * ceil(M/(B-2))** = scan of outer + scan of inner * #outer blocks
 <img width="320" alt="image" src="https://user-images.githubusercontent.com/84046974/203424216-2d41146a-665a-4525-98c6-1492526e7728.png" align="left">
 <img width="358" alt="image" src="https://user-images.githubusercontent.com/84046974/203424448-fa9c8aa3-9e09-4a7b-ad39-9be68cb19d49.png">
 
