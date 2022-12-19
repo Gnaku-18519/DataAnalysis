@@ -820,4 +820,4 @@ Key Effect: easy to compose
   * BCNF removes certain types of redundancy
   * different spliting process may result in different final tables
 <img width="431" alt="image" src="https://user-images.githubusercontent.com/84046974/207750748-78f92565-6d51-4bcb-86ac-467010c6e50b.png" align="left">
-<img width="395" alt="image" src="https://user-images.githubusercontent.com/84046974/207750839-2c66ed8a-0033-481f-bcf2-8d7c447fe4dc.png">
+<img width="525" alt="image" src="https://user-images.githubusercontent.com/84046974/208485615-5ee82a44-d846-4e55-a05f-547d3f913354.png">
