@@ -760,6 +760,7 @@ Key Effect: easy to compose
   * **append-only**
   * multiple transactions run concurrently, log records are interleaved
   * checkpointing -- checkpoint the database periodically -- **during recovery, stop at first \<CKPT>**
+    * \<START CKPT Ti> indicates that Ti are the **only** active transactions at that point
     * stop accepting new transactions
     * wait until all curent transactions complete
     * flush log to disk
@@ -772,7 +773,7 @@ Key Effect: easy to compose
     * **outputs are done early** -- modify, then <T, X, v>; write to disk, then \<COMMIT T>
     * read log from **the back**, undo all modifications by **incompleted** transactions
     * all undo commands are **idempotent** -- if we perform them a second time, no harm is done
-    * nonquiescent checkpointing (\<START CKPT Ti> where Ti are the **only** active transactions at that point)
+    * nonquiescent checkpointing
       * bottom-up, find the first \<END CKPT> and its corresponding \<START CKPT Ti>
       * here, we know **Ti is already on disk** (as \<END CKPT> happens after \<COMMIT Ti>)
       * bottom-up, find the transactions that **start after** \<START CKPT Ti> and **haven't been committed yet**
