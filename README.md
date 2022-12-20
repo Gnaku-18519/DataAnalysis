@@ -634,8 +634,8 @@ Key Effect: easy to compose
   * If there is an index on the join column of one relation (say S), can make it the inner and exploit the index
   * **Cost:  M + ((M * #tuple<sub>R</sub>) * cost of finding matching S tuples)**
   * cost can vary a lot
-  * E.g. Company(cname, city), Product(pname, maker, price) with B(Company) = B(Product) = 10000 blocks; each block can accomodate 5 records; there is an index on cname of Company
-    * put Product as **outer** relation and Company as inner relation
+  * E.g. Company(cname, city), Product(pname, maker, price) with B(Company) = B(Product) = 10000 blocks; each block can accomodate 5 records; cname is the key, and there is an index on cname of Company
+    * put Company as **outer** relation and Product as inner relation -> so Product will be looped
     * as each block accomodates 5 records, for each record in Product, it at most needs to be read in 5 times to compare with the records in Company
     * so the cost is up to 5 * B(P) = 50000
 * Comparisons based on Join Conditions
