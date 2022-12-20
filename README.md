@@ -637,7 +637,7 @@ Key Effect: easy to compose
   * E.g. Company(cname, city), Product(pname, maker, price) with B(Company) = B(Product) = 10000 blocks; each block can accomodate 5 records; cname is the key, and there is an index on cname of Company
     * put Company as **outer** relation and Product as inner relation -> so Product will be looped
     * as each block accomodates 5 records, for each record in Product, it at most needs to be read in 5 times to compare with the records in Company
-    * so the cost is up to 5 * B(P) = 50000
+    * so the cost is up to B(C) + 5 * B(P) = 60000
 * Comparisons based on Join Conditions
   * Equality (e.g., R.sid = S.sid AND R.rname = S.sname)
     * For Index NL, build index on <sid, sname> (if S is inner) or use existing indexes on sid or sname
