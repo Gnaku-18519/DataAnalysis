@@ -769,7 +769,7 @@ Key Effect: easy to compose
   * undo-logging
     * \<START T>, <T, X, v> (T has updated element X, and its **old** value was v), \<COMMIT T>, \<ABORT T>
       * see \<COMMIT> -> already on disk -> no need to undo
-      * no \<COMMIT> -> not sure if on disk or not -> have to undo
+      * no \<COMMIT> -> not sure on disk or not -> have to undo
     * **outputs are done early** -- modify, then <T, X, v>; write to disk, then \<COMMIT T>
     * read log from **the back**, undo all modifications by **incompleted** transactions
     * all undo commands are **idempotent** -- if we perform them a second time, no harm is done
@@ -780,7 +780,7 @@ Key Effect: easy to compose
       * undo them (set to old values)
   * redo-logging
     * <T,X,v> (T has updated element X, and its **new** value is v)
-      * see \<COMMIT> -> not sure if on disk or not -> have to redo
+      * see \<COMMIT> -> not sure on disk or not -> have to redo
       * no \<COMMIT> -> not completed yet -> no need to redo
     * **outputs are done late** -- <T, X, v> and \<COMMIT T> before write to disk
     * read log from **the beginning**, redo all updates of **committed** transactions
